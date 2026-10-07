@@ -45,3 +45,13 @@ teste_notch = canal_original.copy()
 # aplica o filtro Notch nessa cópia
 # remove só uma frequência específica (60Hz, da rede elétrica)
 # parâmetros: (sinal, taxa de amostragem, frequência
+
+# parâmetros: (sinal, taxa de amostragem, frequência a remover, largura da faixa removida, ordem, tipo, ripple)
+DataFilter.perform_bandstop(teste_notch, 125, 60, 4, 4, FilterTypes.BUTTERWORTH.value, 0)
+
+# mostra os 5 primeiros valores de cada versão, só pra conferir rapidamente
+print("Original:", canal_original[:5])
+print("Passa-Baixa:", teste_passa_baixa[:5])
+print("Passa-Alta:", teste_passa_alta[:5])
+print("Passa-Banda:", teste_passa_banda[:5])
+print("Notch:", teste_notch[:5])
