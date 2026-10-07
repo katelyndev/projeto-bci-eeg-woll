@@ -9,7 +9,7 @@ dados = DataFilter.read_file('gravacao_ruido.csv')
 
 # pega só uma linha desse array inteiro
 # esse será o sinal "puro", que vamos preservar sem mexer
-canal_original = dados[0]
+canal_original = dados[3]
 
 # TESTE 1: FILTRO PASSA-BAIXA
 # cria uma cópia independente do sinal original
