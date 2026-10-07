@@ -47,7 +47,7 @@ teste_notch = canal_original.copy()
 # parâmetros: (sinal, taxa de amostragem, frequência
 
 # parâmetros: (sinal, taxa de amostragem, frequência a remover, largura da faixa removida, ordem, tipo, ripple)
-DataFilter.perform_bandstop(teste_notch, 125, 60, 4, 4, FilterTypes.BUTTERWORTH.value, 0)
+DataFilter.perform_bandstop(teste_notch, 125, 58, 62, 4, FilterTypes.BUTTERWORTH.value, 0)
 
 # mostra os 5 primeiros valores de cada versão, só pra conferir rapidamente
 print("Original:", canal_original[:5])
