@@ -3,6 +3,8 @@
 # FilterTypes - uma lista de tipos de filtro matemático que podemos escolher
 from brainflow.data_filter import DataFilter, FilterTypes, DetrendOperations
 
+from brainflow.board_shim import BoardShim, BoardIds
+
 # Ferramenta de gráficos visuais do Python
 import matplotlib.pyplot as plt
 
@@ -101,8 +103,6 @@ ax2.grid(True)
 # Ajusta os espaçamentos e exibe a janela na tela
 plt.tight_layout()
 plt.show()
-
-from brainflow.board_shim import BoardShim, BoardIds
 
 board_id = BoardIds.SYNTHETIC_BOARD.value  # ou o board correto usado na gravação
 eeg_channels = BoardShim.get_eeg_channels(board_id)
