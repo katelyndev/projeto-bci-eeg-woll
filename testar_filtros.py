@@ -35,8 +35,8 @@ teste_passa_banda = canal_original.copy()
 
 # aplica o filtro Passa-Banda nessa cópia
 # deixa passar só a faixa do meio (8Hz até 30Hz) - onde fica Mu/Beta
-# parâmetros: (sinal, taxa de amostragem, início da faixa, fim da faixa, ordem, tipo, ripple)
-DataFilter.perform_bandpass(teste_passa_banda, 125, 8, 30, 4, FilterTypes.BUTTERWORTH.value, 0)
+# parâmetros: (sinal, taxa de amostragem, frequência central, largura da banda, ordem, tipo, ripple)
+DataFilter.perform_bandpass(teste_passa_banda, 125, 19.0, 22.0, 4, FilterTypes.BUTTERWORTH.value, 0)
 
 # TESTE 4: FILTRO NOTCH
 # última cópia nova, também partindo do original
