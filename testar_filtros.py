@@ -14,7 +14,7 @@ dados = DataFilter.read_file('gravacao_ruido.csv')
 
 # pega só uma linha desse array inteiro
 # esse será o sinal "puro", que vamos preservar sem mexer
-canal_original = dados[3]
+canal_original = dados[3].copy() 
 
 # Remove o Offset DC de todo o canal antes de criar as cópias
 DataFilter.detrend(canal_original, DetrendOperations.CONSTANT.value)
