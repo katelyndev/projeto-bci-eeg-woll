@@ -8,7 +8,7 @@ params = BrainFlowInputParams()
 
 # a caixa de ferramentas esta sendo preenchida com um caminho da gravacao | queremos que BrainFlow leia dados prontos nao gere do zero
 # params.file = "/home/woll-ai/Projetos/BCI/gravacao_16canais.csv"
-params.file = "/home/woll-ai/Projetos/BCI/gravacao_filtrada.csv"
+params.file = "/home/woll-ai/Projetos/BCI/gravacao_ruido.csv"
 # params.file = "/home/woll-ai/Projetos/BCI/gravacao_filtrada_pequena.csv"
 
 # preenche outro campo da caixa de ferramentas mostrando que esse arquivo é do tipo board synthetc(qual estrutura esperar)
