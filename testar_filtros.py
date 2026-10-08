@@ -61,13 +61,10 @@ DataFilter.perform_bandstop(teste_notch, 125, 58, 62, 4, FilterTypes.BUTTERWORTH
 # cria uma cópia que vai receber TODOS os filtros em sequência
 sinal_limpo = canal_original.copy()
 
-# 1. Remove a tendência / Offset DC
-DataFilter.detrend(sinal_limpo, DetrendOperations.CONSTANT.value)
-
-# 2. Remove o ruído de 60Hz da rede elétrica
+# Remove o ruído de 60Hz da rede elétrica
 DataFilter.perform_bandstop(sinal_limpo, 125, 58, 62, 4, FilterTypes.BUTTERWORTH.value, 0)
 
-# 3. Isola a faixa motora (8 a 30 Hz)
+# Isola a faixa motora (8 a 30 Hz)
 DataFilter.perform_bandpass(sinal_limpo, 125, 19.0, 22.0, 4, FilterTypes.BUTTERWORTH.value, 0)
 
 # mostra os 5 primeiros valores de cada versão, só pra conferir rapidamente
@@ -117,7 +114,9 @@ dados_reduzidos = dados[:, :1000].copy()
 # continua filtrando só os canais de EEG de verdade (eeg_channels),
 # igual fizemos antes, pra não estragar as linhas de contagem/metadado
 for canal in eeg_channels:
-    DataFilter.perform_bandpass(dados_reduzidos[canal], 125, 8, 30, 4, FilterTypes.BUTTERWORTH.value, 0)
+    DataFilter.detrend(dados_reduzidos[canal], DetrendOperations.CONSTANT.value)
+    DataFilter.perform_bandstop(dados_reduzidos[canal], 125, 58, 62, 4, FilterTypes.BUTTERWORTH.value, 0)
+    DataFilter.perform_bandpass(dados_reduzidos[canal], 125, 19.0, 22.0, 4, FilterTypes.BUTTERWORTH.value, 0)
 
 # salva essa versão reduzida e já filtrada num arquivo novo, menor que o anterior
 DataFilter.write_file(dados_reduzidos, 'gravacao_filtrada_pequena.csv', 'w')
