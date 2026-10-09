@@ -12,60 +12,66 @@ import matplotlib.pyplot as plt
 # (array completo: cada linha é um canal diferente)
 dados = DataFilter.read_file('gravacao_ruido.csv')
 
-# pega só uma linha desse array inteiro
-# esse será o sinal "puro", que vamos preservar sem mexer
-canal_original = dados[3].copy() 
+frequencia_amostragem = 160
 
-# Remove o Offset DC de todo o canal antes de criar as cópias
-DataFilter.detrend(canal_original, DetrendOperations.CONSTANT.value)
+
+# pega só uma linha desse array inteiro
+# Guarda uma cópia do sinal bruto, sem modificações
+canal_original = dados[3].copy()
+
+# Cria outra cópia para realizar o processamento
+canal_processamento = canal_original.copy()
+
+# Remove o offset DC somente da cópia de processamento
+DataFilter.detrend(canal_processamento, DetrendOperations.CONSTANT.value)
 
 # TESTE 1: FILTRO PASSA-BAIXA
 # cria uma cópia independente do sinal original
 # isso evita que o filtro de baixo estrague o canal_original
-teste_passa_baixa = canal_original.copy()
+teste_passa_baixa = canal_processamento.copy()
 
 # aplica o filtro Passa-Baixa na cópia
 # deixa passar só frequência baixa, corta tudo acima de 30Hz
 # parâmetros: (sinal, taxa de amostragem, frequência de corte, ordem, tipo matemático, ripple)
-DataFilter.perform_lowpass(teste_passa_baixa, 125, 30, 4, FilterTypes.BUTTERWORTH.value, 0)
+DataFilter.perform_lowpass(teste_passa_baixa, frequencia_amostragem, 30, 4, FilterTypes.BUTTERWORTH.value, 0)
 
 # TESTE 2: FILTRO PASSA-ALTA
 # cria outra cópia nova, partindo do original intacto (não da cópia anterior)
-teste_passa_alta = canal_original.copy()
+teste_passa_alta = canal_processamento.copy()
 
 # aplica o filtro Passa-Alta nessa cópia
 # deixa passar só frequência alta, corta tudo abaixo de 8Hz
-DataFilter.perform_highpass(teste_passa_alta, 125, 8, 4, FilterTypes.BUTTERWORTH.value, 0)
+DataFilter.perform_highpass(teste_passa_alta, frequencia_amostragem, 8, 4, FilterTypes.BUTTERWORTH.value, 0)
 
 # TESTE 3: FILTRO PASSA-BANDA
 # mais uma cópia nova, também a partir do original
-teste_passa_banda = canal_original.copy()
+teste_passa_banda = canal_processamento.copy()
 
 # aplica o filtro Passa-Banda nessa cópia
 # deixa passar só a faixa do meio (8Hz até 30Hz) - onde fica Mu/Beta
 # parâmetros: (sinal, taxa de amostragem, frequência central, largura da banda, ordem, tipo, ripple)
-DataFilter.perform_bandpass(teste_passa_banda, 125, 19.0, 22.0, 4, FilterTypes.BUTTERWORTH.value, 0)
+DataFilter.perform_bandpass(teste_passa_banda, frequencia_amostragem, 19.0, 22.0, 4, FilterTypes.BUTTERWORTH.value, 0)
 
 # TESTE 4: FILTRO NOTCH
 # última cópia nova, também partindo do original
-teste_notch = canal_original.copy()
+teste_notch = canal_processamento.copy()
 
 # aplica o filtro Notch nessa cópia
 # remove só uma frequência específica (60Hz, da rede elétrica)
 # parâmetros: (sinal, taxa de amostragem, frequência
 
 # parâmetros: (sinal, taxa de amostragem, frequência a remover, largura da faixa removida, ordem, tipo, ripple)
-DataFilter.perform_bandstop(teste_notch, 125, 58, 62, 4, FilterTypes.BUTTERWORTH.value, 0)
+DataFilter.perform_bandstop(teste_notch, frequencia_amostragem, 58, 62, 4, FilterTypes.BUTTERWORTH.value, 0)
 
 # TESTE 5: PIPELINE COMPLETO (Sinal Limpo Final)
 # cria uma cópia que vai receber TODOS os filtros em sequência
-sinal_limpo = canal_original.copy()
+sinal_limpo = canal_processamento.copy()
 
 # Remove o ruído de 60Hz da rede elétrica
-DataFilter.perform_bandstop(sinal_limpo, 125, 58, 62, 4, FilterTypes.BUTTERWORTH.value, 0)
+DataFilter.perform_bandstop(sinal_limpo, frequencia_amostragem, 58, 62, 4, FilterTypes.BUTTERWORTH.value, 0)
 
 # Isola a faixa motora (8 a 30 Hz)
-DataFilter.perform_bandpass(sinal_limpo, 125, 19.0, 22.0, 4, FilterTypes.BUTTERWORTH.value, 0)
+DataFilter.perform_bandpass(sinal_limpo, frequencia_amostragem, 19.0, 22.0, 4, FilterTypes.BUTTERWORTH.value, 0)
 
 # mostra os 5 primeiros valores de cada versão, só pra conferir rapidamente
 print("Original:", canal_original[:5])
@@ -105,7 +111,7 @@ board_id = BoardIds.SYNTHETIC_BOARD.value  # ou o board correto usado na gravaç
 eeg_channels = BoardShim.get_eeg_channels(board_id)
 
 # pega todas as linhas (todos os canais), mas só as primeiras 1000 colunas
-# isso corta o sinal em um pedaço menor (cerca de 8 segundos, já que fs=125)
+# 1000 amostras correspondem a 1000 / frequencia_amostragem segundos
 # o objetivo é reduzir o tamanho do arquivo final, pra testar se isso resolve
 # a instabilidade do Streaming Board com arquivos grandes
 dados_reduzidos = dados[:, :1000].copy()
@@ -115,8 +121,8 @@ dados_reduzidos = dados[:, :1000].copy()
 # igual fizemos antes, pra não estragar as linhas de contagem/metadado
 for canal in eeg_channels:
     DataFilter.detrend(dados_reduzidos[canal], DetrendOperations.CONSTANT.value)
-    DataFilter.perform_bandstop(dados_reduzidos[canal], 125, 58, 62, 4, FilterTypes.BUTTERWORTH.value, 0)
-    DataFilter.perform_bandpass(dados_reduzidos[canal], 125, 19.0, 22.0, 4, FilterTypes.BUTTERWORTH.value, 0)
+    DataFilter.perform_bandstop(dados_reduzidos[canal], frequencia_amostragem, 58, 62, 4, FilterTypes.BUTTERWORTH.value, 0)
+    DataFilter.perform_bandpass(dados_reduzidos[canal], frequencia_amostragem, 19.0, 22.0, 4, FilterTypes.BUTTERWORTH.value, 0)
 
 # salva essa versão reduzida e já filtrada num arquivo novo, menor que o anterior
 DataFilter.write_file(dados_reduzidos, 'gravacao_filtrada_pequena.csv', 'w')
