@@ -12,6 +12,9 @@ import matplotlib.pyplot as plt
 # (array completo: cada linha é um canal diferente)
 dados = DataFilter.read_file('gravacao_ruido.csv')
 
+print("Tipo dos dados:", type(dados))
+print("Dimensões dos dados:", dados.shape)
+
 frequencia_amostragem = 160
 
 
@@ -104,12 +107,19 @@ plt.show()
 board_id = BoardIds.SYNTHETIC_BOARD.value  # ou o board correto usado na gravação
 eeg_channels = BoardShim.get_eeg_channels(board_id)
 
+dados_reduzidos = dados[:, :1000].copy()
+
+print("Dimensões reduzidas:", dados_reduzidos.shape)
+
+for indice, linha in enumerate(dados):
+    print("Linha", indice, ":", linha[:3])
+
 # filtra SÓ os canais de EEG, preservando as outras linhas (timestamp, etc)
 # CORRIGIDO: 19.0, 22.0 (centro/largura, versão do Pedro) → 8, 30 (start/stop, sua versão)
-for canal in eeg_channels:
-    DataFilter.detrend(dados_reduzidos[canal], DetrendOperations.CONSTANT.value)
-    DataFilter.perform_bandstop(dados_reduzidos[canal], frequencia_amostragem, 58, 62, 4, FilterTypes.BUTTERWORTH.value, 0)
-    DataFilter.perform_bandpass(dados_reduzidos[canal], frequencia_amostragem, 19.0, 22.0, 4, FilterTypes.BUTTERWORTH.value, 0)
+# for canal in eeg_channels:
+#     DataFilter.detrend(dados_reduzidos[canal], DetrendOperations.CONSTANT.value)
+#     DataFilter.perform_bandstop(dados_reduzidos[canal], frequencia_amostragem, 58, 62, 4, FilterTypes.BUTTERWORTH.value, 0)
+#     DataFilter.perform_bandpass(dados_reduzidos[canal], frequencia_amostragem, 19.0, 22.0, 4, FilterTypes.BUTTERWORTH.value, 0)
 
 # # salva essa versão reduzida e já filtrada num arquivo novo, menor que o anterior
 # DataFilter.write_file(dados_reduzidos, 'gravacao_filtrada_pequena.csv', 'w')
