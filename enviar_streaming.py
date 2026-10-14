@@ -12,10 +12,15 @@ params = BrainFlowInputParams()
 # params.file = "/home/woll-ai/Projetos/BCI/gravacao_filtrada.csv"
 # params.file = "/home/woll-ai/Projetos/BCI/gravacao_olhos_fechados.csv" 
 # params.file = "/home/woll-ai/Projetos/BCI/gravacao_olhos_abertos.csv"
-params.file = "/home/woll-ai/projeto-bci-eeg-woll/gravacao_olhos_fechados.csv"
+# params.file = "/home/woll-ai/projeto-bci-eeg-woll/gravacao_olhos_fechados.csv"
+params.file = "/home/woll-ai/projeto-bci-eeg-woll/gravacao_olhos_abertos_corrigida.csv"
 
 # preenche outro campo da caixa de ferramentas mostrando que esse arquivo é do tipo board synthetc(qual estrutura esperar)
 params.master_board = BoardIds.SYNTHETIC_BOARD.value
+
+taxa_synthetic = BoardShim.get_sampling_rate(params.master_board)
+
+print("Taxa do Synthetic Board:", taxa_synthetic, "Hz")
 
 # # se os dados tivessem vindo da placa real Cyton+Daisy
 # params.master_board = BoardIds.CYTON_DAISY_BOARD
@@ -37,8 +42,13 @@ board.prepare_session()
 board.start_stream(45000, 'streaming_board://225.1.1.1:6677')
 
 # pausa o código por 60 segundos, dando tempo do simulador gerar dados | quanro maior o tempo maior a quantidade do arquivo sera tranmitido 
-time.sleep(60)
+# time.sleep(60)
+for i in range(10):
+    time.sleep(1)
 
+    quantidade = board.get_board_data_count()
+
+    print("Segundo", i + 1, "- Amostras no buffer:", quantidade)
 
 # para a geração continua de dados  
 board.stop_stream()
