@@ -13,7 +13,7 @@ params = BrainFlowInputParams()
 # params.file = "/home/woll-ai/Projetos/BCI/gravacao_olhos_fechados.csv" 
 # params.file = "/home/woll-ai/Projetos/BCI/gravacao_olhos_abertos.csv"
 # params.file = "/home/woll-ai/projeto-bci-eeg-woll/gravacao_olhos_fechados.csv"
-params.file = "/home/woll-ai/projeto-bci-eeg-woll/gravacao_filtrada.csv"
+params.file = "/home/woll-ai/projeto-bci-eeg-woll/gravacao_olhos_abertos.csv"
 
 # preenche outro campo da caixa de ferramentas mostrando que esse arquivo é do tipo board synthetc(qual estrutura esperar)
 params.master_board = BoardIds.SYNTHETIC_BOARD.value
