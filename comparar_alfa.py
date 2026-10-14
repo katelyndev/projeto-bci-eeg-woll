@@ -56,5 +56,5 @@ calcular_potencia_banda('gravacao_olhos_fechados.csv', 8, 8, 13, "Alfa")
 calcular_potencia_banda('gravacao_olhos_fechados.csv', 8, 13, 30, "Beta")
 
 print("--- Canal 8 (O2) - FILTRADO (8-13Hz) ---")
-calcular_potencia_banda('gravacao_olhos_fechados_filtrada.csv', 8, 8, 13, "Alfa")
-calcular_potencia_banda('gravacao_olhos_fechados_filtrada.csv', 8, 13, 30, "Beta")
+calcular_potencia_banda('gravacao_olhos_fechados_corrigida.csv', 8, 8, 13, "Alfa")
+calcular_potencia_banda('gravacao_olhos_fechados_corrigida.csv', 8, 13, 30, "Beta")
