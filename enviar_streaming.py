@@ -49,7 +49,13 @@ print("Início do envio:", datetime.now().strftime("%H:%M:%S"))
 board.start_stream(45000, 'streaming_board://225.1.1.1:6677')
 
 # pausa o código por 60 segundos, dando tempo do simulador gerar dados | quanro maior o tempo maior a quantidade do arquivo sera tranmitido 
+<<<<<<< HEAD
 time.sleep(60)
+=======
+# time.sleep(60)
+for i in range(80):
+    time.sleep(1)
+>>>>>>> b08b80c88ee8d87234a0b47312bb6a2038b13e99
 
 print("Fim da espera (60s):", datetime.now().strftime("%H:%M:%S"))
 
