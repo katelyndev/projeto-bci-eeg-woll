@@ -84,11 +84,7 @@ num_amostras = len(sinais_reais[0])
 timestamp_inicial = time.time()
 
 # abre (cria) o arquivo de saída, no formato que nosso código já sabe usar
-<<<<<<< HEAD
 with open("gravacao_olhos_abertos.csv", "w") as f: # gravacao_ruido.csv gravacao_olhos_fechados.csv gravacao_olhos_abertos.csv
-=======
-with open("gravacao_olhos_fechados_corrigida.csv", "w") as f: # gravacao_ruido.csv gravacao_olhos_fechados.csv gravacao_olhos_abertos.csv
->>>>>>> b08b80c88ee8d87234a0b47312bb6a2038b13e99
     # repete uma vez para cada amostra
     for i in range(num_amostras):
         # índice da amostra, reiniciando em ciclos de 0 a 255
