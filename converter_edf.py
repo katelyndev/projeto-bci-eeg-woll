@@ -51,6 +51,7 @@ import time
 
 # abre o arquivo .edf baixado do PhysioNet
 arquivo = pyedflib.EdfReader("S001R01.edf")  # S001R03.edf(imaginação)  S001R02.edf(olhos fechados) S001R01.edf(olhos abertos)
+arquivo = pyedflib.EdfReader("S001R01.edf")  # S001R03.edf(imaginação)  S001R02.edf(olhos fechados) S001R01.edf(olhos abertos)
 
 # pega os NOMES reais de todos os 64 canais do arquivo
 nomes_canais = arquivo.getSignalLabels()
@@ -79,6 +80,9 @@ arquivo.close()
 # descobre quantas amostras existem, olhando o primeiro canal lido
 num_amostras = len(sinais_reais[0])
 
+# ponto de referência para calcular os demais timestamps
+timestamp_inicial = time.time()
+
 # abre (cria) o arquivo de saída, no formato que nosso código já sabe usar
 with open("gravacao_olhos_abertos.csv", "w") as f: # gravacao_ruido.csv gravacao_olhos_fechados.csv gravacao_olhos_abertos.csv
     # repete uma vez para cada amostra
@@ -99,6 +103,7 @@ with open("gravacao_olhos_abertos.csv", "w") as f: # gravacao_ruido.csv gravacao
         # gera o timestamp certo, respeitando a taxa real de 160Hz
         timestamp = i / fs_real
 
+        timestamp = timestamp_inicial + (i / fs_real)
         # marcador zerado
         marker = 0.0
 
@@ -108,4 +113,4 @@ with open("gravacao_olhos_abertos.csv", "w") as f: # gravacao_ruido.csv gravacao
         f.write("\t".join(map(str, linha)) + "\n")
 
 # avisa na tela, já mostrando a taxa real confirmada
-print(f"Convertido! {num_amostras} amostras (taxa real: {fs_real}Hz) salvas em gravacao_olhos_abertos.csv")
+print(f"Convertido! {num_amostras} amostras (taxa real: {fs_real}Hz) salvas")

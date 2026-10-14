@@ -23,6 +23,10 @@ params.file = "/home/woll-ai/Projetos/BCI/gravacao_olhos_fechados_filtrada.csv"
 # preenche outro campo da caixa de ferramentas mostrando que esse arquivo é do tipo board synthetc(qual estrutura esperar)
 params.master_board = BoardIds.SYNTHETIC_BOARD.value
 
+taxa_synthetic = BoardShim.get_sampling_rate(params.master_board)
+
+print("Taxa do Synthetic Board:", taxa_synthetic, "Hz")
+
 # # se os dados tivessem vindo da placa real Cyton+Daisy
 # params.master_board = BoardIds.CYTON_DAISY_BOARD
 
