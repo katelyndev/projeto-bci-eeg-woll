@@ -95,6 +95,10 @@ with open("gravacao_olhos_fechados.csv", "w") as f: # gravacao_ruido.csv gravaca
         resto_zeros = [0.0] * 13
         # pega o horário atual
         timestamp = time.time()
+
+        # gera o timestamp certo, respeitando a taxa real de 160Hz
+        timestamp = i / fs_real
+
         # marcador zerado
         marker = 0.0
 
