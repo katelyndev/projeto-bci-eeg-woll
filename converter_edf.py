@@ -55,8 +55,11 @@ arquivo = pyedflib.EdfReader("S001R01.edf")  # S001R03.edf(imaginação)  S001R0
 # pega os NOMES reais de todos os 64 canais do arquivo
 nomes_canais = arquivo.getSignalLabels()
 
-# lista dos eletrodos que realmente nos interessam
-eletrodos_desejados = ["C3..", "C4..", "O1..", "O2.."]
+# lista dos 16 eletrodos padrão do Cyton+Daisy, NA MESMA ORDEM que o projeto já usa
+eletrodos_desejados = [
+    "Fp1.", "Fp2.", "C3..", "C4..", "P7..", "P8..", "O1..", "O2..",
+    "F7..", "F8..", "F3..", "F4..", "T7..", "T8..", "P3..", "P4..",
+]
 
 # procura o índice certo de cada eletrodo, pelo NOME (não mais um número fixo)
 indices_corretos = [nomes_canais.index(nome) for nome in eletrodos_desejados]
@@ -86,17 +89,19 @@ with open("gravacao_olhos_abertos_corrigida.csv", "w") as f: # gravacao_ruido.cs
         # índice da amostra, reiniciando em ciclos de 0 a 255
         sample_index = i % 256
 
-        # monta os 16 "slots" de canal, preenchendo só os 4 que temos de verdade
+        # monta os 16 dados de canal
         # nas mesmas posições que o resto do projeto já espera (Cyton+Daisy)
-        exg = [0.0] * 16
-        exg[2] = sinais_reais[0][i]  # C3
-        exg[3] = sinais_reais[1][i]  # C4
-        exg[6] = sinais_reais[2][i]  # O1
-        exg[7] = sinais_reais[3][i]  # O2
+        exg = [sinais_reais[canal][i] for canal in range(16)]
+
 
         # preenche o resto das colunas com zero
         resto_zeros = [0.0] * 13
         # pega o horário atual
+        timestamp = time.time()
+
+        # gera o timestamp certo, respeitando a taxa real de 160Hz
+        timestamp = i / fs_real
+
         timestamp = timestamp_inicial + (i / fs_real)
         # marcador zerado
         marker = 0.0
