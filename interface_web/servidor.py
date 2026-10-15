@@ -4,6 +4,9 @@ from flask import Flask, jsonify, send_file
 # Cria nossa aplicação web
 app = Flask(__name__)
 
+#guarda o estado atual
+estado_atual = 0
+
 # Define a rota raiz ("/") e associa à função abrir_pagina
 @app.route("/")
 def abrir_pagina():
@@ -16,7 +19,7 @@ def abrir_pagina():
 def obter_estado():
 
     # Devolve o estado em formato JSON
-    return jsonify({"estado": 0})
+    return jsonify({"estado": estado_atual})
 
 # Inicia o servidor para testes locais
 app.run(debug=True)
