@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/style.css">
+    <title>Interface EEG</title>
+</head>
+<body>
+    <h1>Monitoramento EEG</h1>
+
+    <div id="quadrado"></div>
+
+    <button id="botao">Mudar cor</button>
+
+    <script>
+        const quadrado = document.getElementById('quadrado');
+        const botao = document.getElementById('botao');
+
+        function atualizarQuadrado(estado) {
+            if(estado === 1){
+                quadrado.style.backgroundColor = 'green';
+            } else{
+                quadrado.style.backgroundColor = 'orange';
+            }
+        }
+
+        let estado = 0;
+
+        botao.addEventListener("click", function() {
+            if (estado === 0) {
+                estado = 1;
+            } else {
+                estado = 0;
+            }
+
+            atualizarQuadrado(estado);
+        });
+
+        async function consultarEstado() {
+            const resposta = await fetch("/estado");
+            const dados = await resposta.json();
+
+            console.log(dados);
+
+            atualizarQuadrado(dados.estado);
+        }
+
+        consultarEstado();
+
+        setInterval(consultarEstado, 1000);
+    </script>
+</body>
+</html>
