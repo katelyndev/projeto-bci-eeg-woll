@@ -64,7 +64,7 @@ def iniciar_simulacao(callback, delay=3):
 
         # calcula o resultado (0 ou 1) pro pedaço de OLHOS FECHADOS
         resultado_fechado = decidir_estado('gravacao_olhos_fechados_filtrada.csv', inicio=inicio, fim=fim)
-        # chama a função do front, entregando esse resultado
+        # chama a função do front, entregando esse resultado | callback é a funacao que o front chama quando quer receber o resultado da decisao
         callback(resultado_fechado)
         # espera um tempinho, pra dar tempo de ver a mudança de cor
         time.sleep(delay)
