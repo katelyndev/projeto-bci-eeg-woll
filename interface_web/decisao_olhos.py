@@ -108,7 +108,7 @@ def iniciar_simulacao(callback, delay=3):
 # decidir_estado('gravacao_olhos_abertos_filtrada.csv')
 
 # só roda o código abaixo quando este arquivo for executado diretamente
-# (não quando for importado por outro código, tipo o do Pedro)
+# (não quando for importado por outro código, tipo o do front)
 if __name__ == "__main__":
     # le o arquivo de referencia so para descobrir o tamanho total da gravação
     dados_referencia = DataFilter.read_file('gravacao_olhos_fechados_filtrada.csv')

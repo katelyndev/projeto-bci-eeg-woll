@@ -42,5 +42,5 @@ def obter_estado():
     # Devolve o estado em formato JSON
     return jsonify({"estado": estado_atual})
 
-# Inicia o servidor para testes locais
-app.run(debug=True)
+# Inicia o servidor para testes locais  | debug = liga o modo de depuracao mostra mensagem de erro no navegador | use_reloader desliga o recarregar szinho
+app.run(debug=True, use_reloader=False)
