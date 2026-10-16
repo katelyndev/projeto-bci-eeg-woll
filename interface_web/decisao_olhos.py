@@ -64,14 +64,14 @@ def iniciar_simulacao(callback, delay=3):
 
         # calcula o resultado (0 ou 1) pro pedaço de OLHOS FECHADOS
         resultado_fechado = decidir_estado('gravacao_olhos_fechados_filtrada.csv', inicio=inicio, fim=fim)
-        # chama a função do Pedro, entregando esse resultado
+        # chama a função do front, entregando esse resultado
         callback(resultado_fechado)
         # espera um tempinho, pra dar tempo de ver a mudança de cor
         time.sleep(delay)
 
         # calcula o resultado (0 ou 1) pro MESMO pedaço de tempo, mas de OLHOS ABERTOS
         resultado_aberto = decidir_estado('gravacao_olhos_abertos_filtrada.csv', inicio=inicio, fim=fim)
-        # chama a função do Pedro, entregando esse resultado
+        # chama a função do front, entregando esse resultado
         callback(resultado_aberto)
         # espera um tempinho de novo
         time.sleep(delay)

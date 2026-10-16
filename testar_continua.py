@@ -1,4 +1,4 @@
-from decisao_olhos import iniciar_simulacao_continua
+from interface_web.decisao_olhos import iniciar_simulacao_continua
 
 # função de exemplo, só pra simular o que o Pedro faria
 def atualizar_luz(estado):
