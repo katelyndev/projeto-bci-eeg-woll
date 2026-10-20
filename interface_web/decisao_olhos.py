@@ -27,7 +27,7 @@ def calcular_potencia_banda(nome_arquivo, indice_canal, freq_min, freq_max, fs=1
     return potencia_banda
 
 #define a funcao que decide se a pessoa esta com os olhos abertos ou fechados | o canal 7 que é o O1 | valor padrao 400
-def decidir_estado(nome_arquivo, indice_canal=7, threshold=400, inicio=None, fim=None):
+def decidir_estado(nome_arquivo, indice_canal=7, threshold=150, inicio=None, fim=None):
     potencia_alfa = calcular_potencia_banda(nome_arquivo, indice_canal, 8, 13, inicio=inicio, fim=fim) # calcula a potencia da faixa de frequencia alfa no canal | reaproveitando calculo de cima
     # mostra na tela o valor calculado | o f é um tipo especial de texto que permite colocar variaveis dentro do texto
     print(f"Potência Alfa: {potencia_alfa:.2f}")
