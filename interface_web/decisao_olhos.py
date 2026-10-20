@@ -49,7 +49,7 @@ def iniciar_simulacao(callback, delay=3):
     import time
 
     # lê o arquivo de referência, só pra descobrir o tamanho total da gravação
-    dados_referencia = DataFilter.read_file('gravacao_olhos_fechados_tratada.csv')
+    dados_referencia = DataFilter.read_file('gravacao_olhos_fechados_filtrada_teste2.csv')
     # descobre o número total de amostras
     total_amostras = dados_referencia.shape[1]
     # divide a gravação em 3 partes iguais
@@ -63,14 +63,14 @@ def iniciar_simulacao(callback, delay=3):
         fim = inicio + tamanho_pedaco
 
         # calcula o resultado (0 ou 1) pro pedaço de OLHOS FECHADOS
-        resultado_fechado = decidir_estado('gravacao_olhos_fechados_tratada.csv', inicio=inicio, fim=fim)
+        resultado_fechado = decidir_estado('gravacao_olhos_fechados_filtrada_teste2.csv', inicio=inicio, fim=fim)
         # chama a função do front, entregando esse resultado | callback é o parametro reservado que a funacao que o front chama quando quer receber o resultado da decisao
         callback(resultado_fechado)
         # espera um tempinho, pra dar tempo de ver a mudança de cor
         time.sleep(delay)
 
         # calcula o resultado (0 ou 1) pro MESMO pedaço de tempo, mas de OLHOS ABERTOS
-        resultado_aberto = decidir_estado('gravacao_olhos_abertos_tratada.csv', inicio=inicio, fim=fim)
+        resultado_aberto = decidir_estado('gravacao_olhos_abertos_filtrada_teste2.csv', inicio=inicio, fim=fim)
         # chama a função do front, entregando esse resultado
         callback(resultado_aberto)
         # espera um tempinho de novo
@@ -111,7 +111,7 @@ def iniciar_simulacao(callback, delay=3):
 # (não quando for importado por outro código, tipo o do front)
 if __name__ == "__main__":
     # le o arquivo de referencia so para descobrir o tamanho total da gravação
-    dados_referencia = DataFilter.read_file('gravacao_olhos_fechados_tratada.csv')
+    dados_referencia = DataFilter.read_file('gravacao_olhos_fechados_filtrada_teste2.csv')
     # descobre o numero total de gravação (num de colunas = num de amostras) | pegamos a posicao [1] porque queremos saber quantas amostras no tempo teve e nao quantas linhas e canais [0]
     total_amostras = dados_referencia.shape[1]
     # dividimos a gravao em 3 partes de amostras o // é para ter divisao inteira sem casas decimais
@@ -128,8 +128,8 @@ if __name__ == "__main__":
 
         #testa esse pedaco usando o arquivo de olhos fechados
         print("Fechado: ")
-        decidir_estado('gravacao_olhos_fechados_tratada.csv', inicio=inicio, fim=fim)
+        decidir_estado('gravacao_olhos_fechados_filtrada_teste2.csv', inicio=inicio, fim=fim)
 
         #testa esse pedaco de tempo usando o olhos abertos
         print("Aberto: ")
-        decidir_estado('gravacao_olhos_abertos_tratada.csv', inicio=inicio, fim=fim)
+        decidir_estado('gravacao_olhos_abertos_filtrada_teste2.csv', inicio=inicio, fim=fim)
