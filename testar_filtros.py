@@ -182,7 +182,7 @@ import matplotlib.pyplot as plt
 
 # Abre o arquivo gravacao_olhos_fechados.csv e guarda todo o conteúdo dele
 # (array completo: cada linha é um canal diferente)
-dados = DataFilter.read_file('gravacao_olhos_fechados.csv') # gravacao_ruido.csv gravacao_olhos_fechados.csv gravacao_olhos_abertos.csv
+dados = DataFilter.read_file('gravacao_olhos_abertos_teste2.csv') # gravacao_ruido.csv gravacao_olhos_fechados.csv gravacao_olhos_abertos.csv
 
 # mostra na tela o TIPO da variável "dados" (confirma que é um array numpy)
 print("Tipo dos dados:", type(dados))
@@ -336,7 +336,7 @@ for canal in eeg_channels:
     DataFilter.perform_bandpass(dados[canal], frequencia_amostragem, 8, 13, 4, FilterTypes.BUTTERWORTH.value, 0)
 
 # salva o arquivo COMPLETO já filtrado, com nome mais descritivo
-DataFilter.write_file(dados, 'gravacao_olhos_fechados_filtrada.csv', 'w')
+DataFilter.write_file(dados, 'gravacao_olhos_abertos_filtrada_teste2.csv', 'w')
 
 # avisa na tela que deu tudo certo, já identificando qual arquivo foi gerado
 print("Arquivo filtrado (tamanho completo) salvo com sucesso em gravacao_olhos_fechados_filtrada.csv!")
