@@ -1,3 +1,5 @@
+# traz a função que roda a simulação contínua, do arquivo de decisão do frontend
+
 from interface_web.decisao_olhos import iniciar_simulacao_continua
 
 # função de exemplo, só pra simular o que o Pedro faria

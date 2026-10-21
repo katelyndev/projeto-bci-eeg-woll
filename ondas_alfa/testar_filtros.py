@@ -1,3 +1,5 @@
+# ===== VERSÃO ANTIGA (substituída porque processava só 1000 amostras, não o arquivo completo) =====
+
 # # Vai até a biblioteca BrainFlow e pega duas ferramentas
 # # DataFilter - onde ficam as funções de ler arquivo e filtrar
 # # FilterTypes - uma lista de tipos de filtro matemático que podemos escolher
