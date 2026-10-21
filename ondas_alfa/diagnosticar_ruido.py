@@ -84,7 +84,7 @@ if __name__ == "__main__":
     eeg_channels = BoardShim.get_eeg_channels(board_id)
 
     # lê o arquivo CSV com o sinal real com ruído, já com os canais corrigidos
-    dados = DataFilter.read_file('gravacao_ruido.csv') #gravacao_filtrada.csv gravacao_ruido.csv
+    dados = DataFilter.read_file('../arquivo_antigo/gravacao_ruido.csv') #gravacao_filtrada.csv gravacao_ruido.csv
 
     # pega o canal C3 usando a POSIÇÃO CONFIRMADA pela ferramenta,
     # em vez de um número fixo "no chute"

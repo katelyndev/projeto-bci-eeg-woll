@@ -159,9 +159,7 @@ def gerar_mapas_topograficos(modelo, estado, canais_confirmados):
 def processar(estado, excluir, revisar, canais_confirmados):
     """Processa uma gravação e opcionalmente exporta o EEG."""
 
-    origem = Path(
-        f'gravacao_olhos_{estado}_filtrada.csv'
-    )
+    origem = Path(f'../ondas_alfa/gravacao_olhos_{estado}_filtrada.csv')
 
     if not origem.exists():
         raise FileNotFoundError(
