@@ -25,8 +25,8 @@ NOMES_CANAIS = [
 # ARQUIVOS UTILIZADOS PELA EQUIPE
 
 ARQUIVOS = [
-    "gravacao_olhos_abertos_filtrada.csv",
-    "gravacao_olhos_fechados_filtrada.csv"
+    "../ondas_alfa/gravacao_olhos_abertos_filtrada.csv",
+    "../ondas_alfa/gravacao_olhos_fechados_filtrada.csv"
 ]
 
 
