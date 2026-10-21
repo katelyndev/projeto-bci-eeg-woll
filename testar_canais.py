@@ -95,7 +95,6 @@ arquivos_para_converter = [
     pasta + "natural-2.txt", pasta + "highlevel-2.txt",
     pasta + "natural-3.txt", pasta + "highlevel-3.txt"
 ]
-
 # repete o processo de conversão, uma vez pra cada arquivo da lista
 for nome_arquivo in arquivos_para_converter:
 
