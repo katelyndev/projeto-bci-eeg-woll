@@ -11,17 +11,21 @@
 
     <div id="quadrado"></div>
 
+    <p id="mensagem"></p>
     <button id="botao">Mudar cor</button>
 
     <script>
         const quadrado = document.getElementById('quadrado');
         const botao = document.getElementById('botao');
+        const mensagem = document.getElementById('mensagem'); 
 
         function atualizarQuadrado(estado) {
             if(estado === 1){
                 quadrado.style.backgroundColor = 'green';
+                mensagem.textContent = "Olhos fechados";
             } else{
                 quadrado.style.backgroundColor = 'orange';
+                mensagem.textContent = "Olhos abertos";
             }
         }
 

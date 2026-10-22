@@ -17,6 +17,7 @@ h1 {
     width: 220px;
     height: 220px;
     border-radius: 20px;
+    background-color: #cccccc;
     /* deslocamento horizontal | deslocamento vertical | profundidade | cor */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     transition: background-color 0.8s;
