@@ -184,7 +184,7 @@ import matplotlib.pyplot as plt
 
 # Abre o arquivo gravacao_olhos_aberto.csv e guarda todo o conteúdo dele
 # (array completo: cada linha é um canal diferente)
-dados = DataFilter.read_file('gravacao_olhos_abertos_teste3.csv') # gravacao_ruido.csv gravacao_olhos_fechados.csv gravacao_olhos_abertos.csv
+dados = DataFilter.read_file('beta_concentracao/gravacao_beta_natural-3.csv') # gravacao_ruido.csv gravacao_olhos_fechados.csv gravacao_olhos_abertos.csv
 
 # mostra na tela o TIPO da variável "dados" (confirma que é um array numpy)
 print("Tipo dos dados:", type(dados))
@@ -193,11 +193,11 @@ print("Tipo dos dados:", type(dados))
 print("Dimensões dos dados:", dados.shape)
 
 # guarda a taxa de amostragem real (160Hz) numa variável, pra reutilizar depois
-frequencia_amostragem = 160
+frequencia_amostragem = 250
 
 # pega a linha correspondente ao canal O1 (posição 7), e faz uma cópia
 # essa cópia vai ficar intacta, representando o sinal "bruto" original
-canal_original = dados[7].copy()
+canal_original = dados[4].copy()
 
 # cria outra cópia, que vai ser usada pra fazer o processamento/filtros
 canal_processamento = canal_original.copy()
@@ -226,7 +226,7 @@ teste_passa_banda = canal_processamento.copy()
 
 # aplica o filtro Passa-Banda: deixa passar só 8-13Hz (faixa da Alfa)
 # parâmetros: (sinal, taxa de amostragem, início da faixa, fim da faixa, ordem, tipo, ripple)
-DataFilter.perform_bandpass(teste_passa_banda, frequencia_amostragem, 8, 13, 4, FilterTypes.BUTTERWORTH.value, 0)
+DataFilter.perform_bandpass(teste_passa_banda, frequencia_amostragem, 13, 30, 4, FilterTypes.BUTTERWORTH.value, 0)
 
 # TESTE 4: FILTRO NOTCH
 # última cópia nova, também partindo do processamento
@@ -244,7 +244,7 @@ sinal_limpo = canal_processamento.copy()
 DataFilter.perform_bandstop(sinal_limpo, frequencia_amostragem, 58, 62, 4, FilterTypes.BUTTERWORTH.value, 0)
 
 # isola a faixa da Alfa (8 a 13Hz)
-DataFilter.perform_bandpass(sinal_limpo, frequencia_amostragem, 8, 13, 4, FilterTypes.BUTTERWORTH.value, 0)
+DataFilter.perform_bandpass(sinal_limpo, frequencia_amostragem, 13, 30, 4, FilterTypes.BUTTERWORTH.value, 0)
 
 # mostra os 5 primeiros valores do sinal original, sem filtro nenhum
 print("Original:", canal_original[:5])
@@ -319,7 +319,7 @@ plt.show()
 # em vez de perguntar pro BrainFlow (que não conhece esse CSV manual),
 # usamos diretamente as posições que SABEMOS que são os 16 canais reais
 # (de acordo com o jeito que o converter_edf.py montou o arquivo)
-eeg_channels = range(1, 17)
+eeg_channels = range(0, 8)
 
 # percorre cada linha do array completo, mostrando a posição e os 3 primeiros valores
 for indice, linha in enumerate(dados):
@@ -335,10 +335,10 @@ for canal in eeg_channels:
     # remove a interferência elétrica (60Hz) de cada canal
     DataFilter.perform_bandstop(dados[canal], frequencia_amostragem, 58, 62, 4, FilterTypes.BUTTERWORTH.value, 0)
     # isola a faixa da Alfa (8-13Hz) em cada canal
-    DataFilter.perform_bandpass(dados[canal], frequencia_amostragem, 8, 13, 4, FilterTypes.BUTTERWORTH.value, 0)
+    DataFilter.perform_bandpass(dados[canal], frequencia_amostragem, 13, 30, 4, FilterTypes.BUTTERWORTH.value, 0)
 
 # salva o arquivo COMPLETO já filtrado, com nome mais descritivo
-DataFilter.write_file(dados, 'gravacao_olhos_abertos_filtrada_teste3.csv', 'w')
+DataFilter.write_file(dados, 'gravacao_beta_natural_filtrada-3.csv', 'w')
 
 # avisa na tela que deu tudo certo, já identificando qual arquivo foi gerado
 print("Arquivo filtrado (tamanho completo) salvo com sucesso em gravacao_olhos_fechados_filtrada.csv!")
