@@ -1,6 +1,10 @@
 from pathlib import Path
 import pyedflib
-from scipy.signal import welch
+from analise_beta import (
+    calcular_beta,
+    calcular_beta_relativo,
+    decidir_estado,
+)
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -12,7 +16,7 @@ pasta_projeto = Path(__file__).resolve().parent.parent
 pasta_gravacoes = pasta_projeto / "gravacoes_concentracao_calculo"
 
 # Define qual pessoa será analisada nesta execução.
-sujeito = "Subject00"
+sujeito = "Subject02"
 
 # Monta os nomes dos dois arquivos dessa pessoa.
 gravacoes = [
@@ -22,6 +26,7 @@ gravacoes = [
 
 resultados_beta = {}
 janelas_por_condicao = {}
+janelas_relativas_por_condicao = {}
 
 # Repete a leitura para cada gravação.
 for condicao, nome_arquivo in gravacoes:
@@ -50,25 +55,12 @@ for condicao, nome_arquivo in gravacoes:
 
         duracao = len(sinal) / fs
 
-        # Define segmentos de 2 segundos para o cálculo do Welch.
-        amostras_por_segmento = int(2 * fs)
+        # Calcula beta para os 60 segundos.
+        frequencias, psd, potencia_beta = calcular_beta(sinal, fs)
 
-        # Estima a distribuição de potência pelas frequências.
-        frequencias, psd = welch(
-            sinal,
-            fs=fs,
-            nperseg=amostras_por_segmento
-        )
-
-        # Identifica quais frequências pertencem à faixa beta.
+        # Mantém as frequências selecionadas para a conferência no terminal.
         faixa_beta = (frequencias >= 13) & (frequencias <= 30)
-
-        # Seleciona essas frequências e seus valores de PSD.
         frequencias_beta = frequencias[faixa_beta]
-        psd_beta = psd[faixa_beta]
-
-        # Calcula a área da PSD nessa faixa.
-        potencia_beta = np.trapezoid(psd_beta, frequencias_beta)
 
         resultados_beta[condicao] = potencia_beta
 
@@ -78,6 +70,8 @@ for condicao, nome_arquivo in gravacoes:
         # Guarda uma potência beta para cada janela.
         potencias_janelas = []
 
+        betas_relativos_janelas = []
+
         for inicio in range(0, len(sinal), amostras_por_janela):
             fim = inicio + amostras_por_janela
             trecho = sinal[inicio:fim]
@@ -86,23 +80,20 @@ for condicao, nome_arquivo in gravacoes:
             if len(trecho) < amostras_por_janela:
                 break
 
-            frequencias_janela, psd_janela = welch(
+            # Reutiliza o mesmo cálculo para a janela de 4 segundos.
+            frequencias_janela, psd_janela, beta_janela = calcular_beta(
                 trecho,
-                fs=fs,
-                nperseg=amostras_por_segmento
-            )
-
-            faixa_beta_janela = (
-                (frequencias_janela >= 13)
-                & (frequencias_janela <= 30)
-            )
-
-            beta_janela = np.trapezoid(
-                psd_janela[faixa_beta_janela],
-                frequencias_janela[faixa_beta_janela]
+                fs
             )
 
             potencias_janelas.append(beta_janela)
+
+            beta_relativo = calcular_beta_relativo(
+                frequencias_janela,
+                psd_janela
+            )
+
+            betas_relativos_janelas.append(beta_relativo)
 
         print(f"\nCondição: {condicao}")
         print(f"Arquivo: {nome_arquivo}")
@@ -111,15 +102,23 @@ for condicao, nome_arquivo in gravacoes:
         print(f"Unidade: {unidade}")
         print(f"Quantidade de amostras: {len(sinal)}")
         print(f"Duração do canal: {duracao:.2f} segundos")
-        print("Primeiras frequências:", frequencias[:5])
-        print("Quantidade de frequências:", len(frequencias))
-        print("Quantidade de valores da PSD:", len(psd))
         print(
             f"Faixa beta selecionada: "
             f"{frequencias_beta[0]} a {frequencias_beta[-1]} Hz"
         )
         print(f"Potência beta: {potencia_beta:.4f} µV²")
         janelas_por_condicao[condicao] = potencias_janelas
+        janelas_relativas_por_condicao[condicao] = betas_relativos_janelas
+
+        print(
+            "Beta relativo por janela (%):",
+            [round(valor, 2) for valor in betas_relativos_janelas]
+        )
+
+        print(
+            f"Mediana do beta relativo: "
+            f"{np.median(betas_relativos_janelas):.2f}%"
+        )
         print("Quantidade de janelas:", len(potencias_janelas))
         print(
             "Beta por janela:",
@@ -128,6 +127,74 @@ for condicao, nome_arquivo in gravacoes:
         print(f"Mediana das janelas: {np.median(potencias_janelas):.4f} µV²")
         print(f"Menor potência: {min(potencias_janelas):.4f} µV²")
         print(f"Maior potência: {max(potencias_janelas):.4f} µV²")
+
+# Usa as primeiras 5 janelas de repouso como referência.
+janelas_calibracao = janelas_por_condicao["Repouso"][:5]
+
+# Define o limite como a mediana dessas janelas.
+limiar_beta = float(np.median(janelas_calibracao))
+
+print(f"\nReferência beta de repouso: {limiar_beta:.4f} µV²")
+
+# Guarda as previsões para cada condição.
+estados_por_condicao = {}
+
+for condicao, valores in janelas_por_condicao.items():
+    if condicao == "Repouso":
+        # As primeiras 5 janelas já foram usadas na calibração.
+        valores_teste = valores[5:]
+        estado_esperado = 0
+    else:
+        valores_teste = valores
+        estado_esperado = 1
+
+    estados = []
+    acertos = 0
+
+    for potencia in valores_teste:
+        estado = decidir_estado(potencia, limiar_beta)
+        estados.append(estado)
+
+        if estado == estado_esperado:
+            acertos += 1
+
+    estados_por_condicao[condicao] = estados
+
+    print(f"\nAvaliação: {condicao}")
+    print("Estados previstos:", estados)
+    print(f"Acertos: {acertos} de {len(estados)}")
+
+# Calibra a referência usando beta relativo.
+calibracao_relativa = janelas_relativas_por_condicao["Repouso"][:5]
+limiar_relativo = float(np.median(calibracao_relativa))
+
+print(f"\nReferência beta relativa: {limiar_relativo:.4f}%")
+
+estados_relativos_por_condicao = {}
+
+for condicao, valores in janelas_relativas_por_condicao.items():
+    if condicao == "Repouso":
+        valores_teste = valores[5:]
+        estado_esperado = 0
+    else:
+        valores_teste = valores
+        estado_esperado = 1
+
+    estados = []
+    acertos = 0
+
+    for valor in valores_teste:
+        estado = decidir_estado(valor, limiar_relativo)
+        estados.append(estado)
+
+        if estado == estado_esperado:
+            acertos += 1
+
+    estados_relativos_por_condicao[condicao] = estados
+
+    print(f"\nAvaliação com beta relativo: {condicao}")
+    print("Estados previstos:", estados)
+    print(f"Acertos: {acertos} de {len(estados)}")
 
 beta_repouso = resultados_beta["Repouso"]
 beta_calculo = resultados_beta["Cálculo mental"]
@@ -165,8 +232,8 @@ pasta_resultados.mkdir(exist_ok=True)
 
 # Define o nome e salva o gráfico da pessoa analisada.
 caminho_grafico = pasta_resultados / f"beta_F3_{sujeito}.png"
-figura.savefig(caminho_grafico, dpi=150)
+# figura.savefig(caminho_grafico, dpi=150)
 
-print(f"\nGráfico salvo em: {caminho_grafico}")
+# print(f"\nGráfico salvo em: {caminho_grafico}")
 
 plt.show()
