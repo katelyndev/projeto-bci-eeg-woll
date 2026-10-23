@@ -1,0 +1,72 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f2f5;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 5px;
+}
+
+#legenda {
+    color: #777;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+#rotulos {
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* a pista é a barra comprida onde o ponteiro desliza */
+#pista {
+    position: relative;
+    width: 400px;
+    height: 60px;
+    background-color: #e0e0e0;
+    border-radius: 30px;
+    margin-bottom: 20px;
+}
+
+/* o ponteiro é a bolinha que se move dentro da pista */
+#ponteiro {
+    position: absolute;
+    top: 5px;
+    left: 0px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #d1356f;
+    /* a transição cria o efeito de "deslizar" suavemente, em vez de pular */
+    transition: left 0.8s, background-color 0.8s;
+}
+
+#texto-estado {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+#botao {
+    padding: 10px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #4a90d9;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+#botao:hover {
+    background-color: #357abd;
+}

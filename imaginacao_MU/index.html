@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/style.css">
+    <title>Monitoramento de Imaginação Motora (Mu)</title>
+</head>
+<body>
+    <h1>Monitoramento de Imaginação Motora</h1>
+    <p id="legenda">Onda Mu — imaginação da mão esquerda / direita</p>
+
+    <div id="rotulos">
+        <span>⬅ Esquerda</span>
+        <span>Direita ➡</span>
+    </div>
+
+    <div id="pista">
+        <div id="ponteiro"></div>
+    </div>
+
+    <p id="texto-estado"></p>
+
+    <button id="botao">Simular mudança</button>
+
+    <script>
+        const ponteiro = document.getElementById('ponteiro');
+        const texto = document.getElementById('texto-estado');
+        const botao = document.getElementById('botao');
+
+        function atualizarPonteiro(estado) {
+            if (estado === 1) {
+                ponteiro.style.left = 'calc(100% - 50px)';
+                ponteiro.style.backgroundColor = '#1f77b4';
+                texto.textContent = 'Imaginando: mão direita';
+            } else {
+                ponteiro.style.left = '0px';
+                ponteiro.style.backgroundColor = '#d1356f';
+                texto.textContent = 'Imaginando: mão esquerda';
+            }
+        }
+
+        let estado = 0;
+
+        botao.addEventListener("click", function () {
+            estado = estado === 0 ? 1 : 0;
+            atualizarPonteiro(estado);
+        });
+
+        async function consultarEstado() {
+            const resposta = await fetch("/estado");
+            const dados = await resposta.json();
+            console.log(dados);
+            atualizarPonteiro(dados.estado);
+        }
+
+        consultarEstado();
+        setInterval(consultarEstado, 1000);
+    </script>
+</body>
+</html>
