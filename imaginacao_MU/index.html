@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,7 +9,9 @@
 </head>
 <body>
     <h1>Monitoramento de Imaginação Motora</h1>
-    <p id="legenda">Onda Mu — imaginação da mão esquerda / direita</p>
+    <p id="legenda">
+        Onda Mu — imaginação da mão esquerda / direita
+    </p>
 
     <div id="rotulos">
         <span>⬅ Esquerda</span>
@@ -19,41 +22,170 @@
         <div id="ponteiro"></div>
     </div>
 
-    <p id="texto-estado"></p>
+    <p id="texto-estado">Aguardando dados...</p>
 
     <button id="botao">Simular mudança</button>
+    <button id="botao-automatico">Voltar ao automático</button>
+
+    <section id="painel-mu" style="
+        margin: 25px auto;
+        padding: 18px;
+        max-width: 430px;
+        border: 1px solid #cccccc;
+        border-radius: 12px;
+        text-align: center;
+    ">
+        <h2>Potência da onda Mu (8–13 Hz)</h2>
+
+        <p>C3: <strong id="mu-c3">--</strong> µV²</p>
+        <p>Cz: <strong id="mu-cz">--</strong> µV²</p>
+        <p>C4: <strong id="mu-c4">--</strong> µV²</p>
+
+        <p id="tempo-gravacao">Tempo: --</p>
+        <small id="origem-estado">
+            Aguardando informações do EEG...
+        </small>
+    </section>
 
     <script>
-        const ponteiro = document.getElementById('ponteiro');
-        const texto = document.getElementById('texto-estado');
-        const botao = document.getElementById('botao');
+        const ponteiro = document.getElementById("ponteiro");
+        const texto = document.getElementById("texto-estado");
+        const botao = document.getElementById("botao");
+        const botaoAutomatico =
+            document.getElementById("botao-automatico");
+
+        const muC3 = document.getElementById("mu-c3");
+        const muCz = document.getElementById("mu-cz");
+        const muC4 = document.getElementById("mu-c4");
+
+        const tempoGravacao =
+            document.getElementById("tempo-gravacao");
+
+        const origemEstado =
+            document.getElementById("origem-estado");
+
+        let modoSimulacao = false;
+        let indiceSimulacao = 0;
+
+        const sequenciaSimulacao = [
+            "T0", "T1", "T0", "T2"
+        ];
 
         function atualizarPonteiro(estado) {
-            if (estado === 1) {
-                ponteiro.style.left = 'calc(100% - 50px)';
-                ponteiro.style.backgroundColor = '#1f77b4';
-                texto.textContent = 'Imaginando: mão direita';
+            if (estado === "T1") {
+                ponteiro.style.left = "0px";
+                ponteiro.style.backgroundColor = "#d1356f";
+                texto.textContent = "Imaginando: mão esquerda";
+
+            } else if (estado === "T2") {
+                ponteiro.style.left = "calc(100% - 50px)";
+                ponteiro.style.backgroundColor = "#1f77b4";
+                texto.textContent = "Imaginando: mão direita";
+
+            } else if (estado === "T0") {
+                ponteiro.style.left = "calc(50% - 25px)";
+                ponteiro.style.backgroundColor = "#999999";
+                texto.textContent = "Estado: repouso";
+
             } else {
-                ponteiro.style.left = '0px';
-                ponteiro.style.backgroundColor = '#d1356f';
-                texto.textContent = 'Imaginando: mão esquerda';
+                texto.textContent = "Estado desconhecido";
             }
         }
 
-        let estado = 0;
+        function formatarPotencia(valor) {
+            const numero = Number(valor);
 
-        botao.addEventListener("click", function () {
-            estado = estado === 0 ? 1 : 0;
-            atualizarPonteiro(estado);
-        });
+            if (!Number.isFinite(numero)) {
+                return "--";
+            }
 
-        async function consultarEstado() {
-            const resposta = await fetch("/estado");
-            const dados = await resposta.json();
-            console.log(dados);
-            atualizarPonteiro(dados.estado);
+            return numero.toFixed(2);
         }
 
+        function atualizarPotencia(dados) {
+            if (!dados.potencia_mu) {
+                return;
+            }
+
+            muC3.textContent =
+                formatarPotencia(dados.potencia_mu.C3);
+
+            muCz.textContent =
+                formatarPotencia(dados.potencia_mu.Cz);
+
+            muC4.textContent =
+                formatarPotencia(dados.potencia_mu.C4);
+
+            tempoGravacao.textContent =
+                `Tempo da gravação: ${dados.tempo}s`;
+        }
+
+        botao.addEventListener("click", function () {
+            modoSimulacao = true;
+
+            indiceSimulacao =
+                (indiceSimulacao + 1) %
+                sequenciaSimulacao.length;
+
+            const estado =
+                sequenciaSimulacao[indiceSimulacao];
+
+            atualizarPonteiro(estado);
+
+            texto.textContent += " (simulação manual)";
+
+            origemEstado.textContent =
+                "Estado: simulação manual. " +
+                "Potência Mu: dados da gravação EEG.";
+        });
+
+        botaoAutomatico.addEventListener(
+            "click",
+            function () {
+                modoSimulacao = false;
+                consultarEstado();
+            }
+        );
+
+        async function consultarEstado() {
+            try {
+                const resposta = await fetch(
+                    "/estado",
+                    { cache: "no-store" }
+                );
+
+                if (!resposta.ok) {
+                    throw new Error("Falha ao consultar o servidor");
+                }
+
+                const dados = await resposta.json();
+
+                // Potência Mu sempre vem do EEG
+                atualizarPotencia(dados);
+
+                // Estado automático vem das anotações EDF
+                if (!modoSimulacao) {
+                    atualizarPonteiro(dados.estado);
+
+                    origemEstado.textContent =
+                        "Estado: anotações da gravação EDF. " +
+                        "Potência Mu: calculada do EEG.";
+                }
+
+            } catch (erro) {
+                console.error("Erro:", erro);
+
+                if (!modoSimulacao) {
+                    texto.textContent =
+                        "Erro de conexão com o servidor";
+                }
+
+                origemEstado.textContent =
+                    "Sem conexão com o backend.";
+            }
+        }
+
+        atualizarPonteiro("T0");
         consultarEstado();
         setInterval(consultarEstado, 1000);
     </script>
