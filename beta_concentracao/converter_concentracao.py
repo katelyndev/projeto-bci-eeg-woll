@@ -19,7 +19,7 @@ import numpy as np
 from brainflow.data_filter import DataFilter
 
 # lista com os códigos das pessoas que vamos converter (ajuste conforme baixado)
-pessoas = ["S001E01", "S002E01", "S003E01"]
+pessoas = ["S001E01", "S002E01", "S003E01", "S001E02", "S002E02", "S003E02"]
 
 # repete o processo pra cada pessoa da lista
 for pessoa in pessoas:
