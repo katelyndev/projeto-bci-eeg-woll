@@ -1,0 +1,16 @@
+{
+  "Natural": {
+    "arquivo": "gravacao_beta_natural-2.csv",
+    "sha256": "629971e40b60bb1c3599512d14bb8126d2edd62095adfeed443b685c80db1074",
+    "modelo_sha256": "b0e60461eb804149e3d6b9cd3228ba6614fdbbd966d360f3b2813a73f14eec4d",
+    "excluir": [],
+    "justificativa": ""
+  },
+  "Highlevel": {
+    "arquivo": "gravacao_beta_highlevel-2.csv",
+    "sha256": "1ac1b2ef6e22e6b53666f13219ded53c44bd8eed61fa4860d3fce39045c7f9d5",
+    "modelo_sha256": "089d7f66bcc6acbdd9255a8cc2ab99358d6e9bec016c61959521c46720d5545c",
+    "excluir": [],
+    "justificativa": ""
+  }
+}

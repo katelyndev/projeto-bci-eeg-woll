@@ -1,0 +1,23 @@
+{
+  "Relax1": {
+    "arquivo": "gravacao_concentracao_relax1_S001E01.csv",
+    "sha256": "f60651c13b654a0b9d7569d18122b558ee7a827c80f70db272fef92a319bfd0c",
+    "modelo_sha256": "677fb5220b5c0f3496b3da624a9dd4bed8cf7637b5e38c95cdf64d5203753ce0",
+    "excluir": [2],
+    "justificativa": "Teste exploratório do IC 2: transiente próximo de 13 segundos, com participação no F3. Origem do componente ainda não confirmada."
+  },
+  "Foco": {
+    "arquivo": "gravacao_concentracao_foco_S001E01.csv",
+    "sha256": "617e6ca4b2acfa1beb0f0922b634624c2c5ffdeef474fc75b3dd2522d81f844c",
+    "modelo_sha256": "b93d66918b46853588e51c471a56a55d10e0b23ff4b68743ed08a0953da3c2d5",
+    "excluir": [],
+    "justificativa": ""
+  },
+  "Relax2": {
+    "arquivo": "gravacao_concentracao_relax2_S001E01.csv",
+    "sha256": "5d0338c3a2fe95c3347f6ad0babbceb3eea4c433ae8a00a9aecbc43ce309be1a",
+    "modelo_sha256": "d9ff359350d8db7636ed3689ba951164bdfdd04a6923061db3567984190067a9",
+    "excluir": [],
+    "justificativa": ""
+  }
+}

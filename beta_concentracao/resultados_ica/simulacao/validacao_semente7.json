@@ -1,0 +1,15 @@
+{
+  "semente": 7,
+  "fs": 125,
+  "canais": 8,
+  "componente_excluido": 1,
+  "correlacao_piscada": 0.9999831881504474,
+  "erro_rms_antes_uv": 9.035247138392627,
+  "erro_rms_depois_uv": 0.1177811491715705,
+  "reducao_erro_percentual": 98.69642581583525,
+  "beta_canal1_uv2": {
+    "referencia_sem_piscadas": 16.35900093326329,
+    "com_piscadas": 16.358996244730218,
+    "apos_ica": 16.323723396947553
+  }
+}
