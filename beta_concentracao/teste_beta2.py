@@ -14,6 +14,15 @@ from brainflow.data_filter import DataFilter
 
 pasta_projeto = Path(__file__).resolve().parent
 
+# regra pela teoria: se a Beta estiver ACIMA do limite, decide "foco" (1)
+def decidir_estado_teoria(potencia, limiar):
+    # compara a potência da janela com o limite da pessoa
+    if potencia > limiar:
+        # Beta acima do normal dela: decide foco
+        return 1
+    # senão: decide relax
+    return 0
+
 # Define qual pessoa será analisada nesta execução
 sujeito = "S001E01"
 
@@ -101,7 +110,7 @@ for condicao, valores in janelas_por_condicao.items():
     acertos = 0
 
     for potencia in valores_teste:
-        estado = decidir_estado(potencia, limiar_beta)
+        estado = decidir_estado_teoria(potencia, limiar_beta)
         estados.append(estado)
         if estado == estado_esperado:
             acertos += 1
@@ -128,7 +137,7 @@ for condicao, valores in janelas_relativas_por_condicao.items():
     acertos = 0
 
     for valor in valores_teste:
-        estado = decidir_estado(valor, limiar_relativo)
+        estado = decidir_estado_teoria(valor, limiar_relativo)
         estados.append(estado)
         if estado == estado_esperado:
             acertos += 1
