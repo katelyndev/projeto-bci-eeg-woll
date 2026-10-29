@@ -169,7 +169,10 @@
 # # avisa na tela que deu tudo certo
 # print("Arquivo filtrado reduzido salvo com sucesso!")
 
+# ====================================================================================
 
+# Testa os filtros (passa-baixa, passa-alta, passa-banda e notch) e gera o CSV
+# filtrado, aplicado em todos os canais. Escrito junto com o Pedro.
 
 # Vai até a biblioteca BrainFlow e pega duas ferramentas
 # DataFilter - onde ficam as funções de ler arquivo e filtrar

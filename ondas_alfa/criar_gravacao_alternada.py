@@ -1,3 +1,6 @@
+# Cola trechos de olhos abertos e fechados numa gravação só (experimento).
+# Serviu para testar a decisão em trocas rápidas de estado.
+
 # traz o numpy, pra juntar os pedaços
 import numpy as np
 

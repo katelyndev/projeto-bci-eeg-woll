@@ -74,6 +74,11 @@
 # # calcular_potencia_banda('gravacao_olhos_fechados_corrigida.csv', 8, 8, 13, "Alfa")
 # calcular_potencia_banda('gravacao_olhos_fechados_corrigida.csv', 8, 13, 30, "Beta")
 
+# ========================================================================================
+
+# Converte os arquivos .txt do dataset de estresse (Cyton, 8 canais, 250 Hz)
+# para CSV no formato do BrainFlow. (O nome do arquivo não diz isso.)
+
 # traz o numpy
 import numpy as np
 

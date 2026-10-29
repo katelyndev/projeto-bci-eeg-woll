@@ -1,3 +1,6 @@
+# Diagnostica ruído num canal: amplitude máxima, potência em 60 Hz e
+# percentual de energia fora da faixa de 8 a 30 Hz.
+
 # traz o numpy, biblioteca usada pra fazer contas matemáticas com listas de números
 # (nesse código, usamos ela pra calcular máximo, média e soma)
 import numpy as np

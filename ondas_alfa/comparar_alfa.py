@@ -1,3 +1,6 @@
+# Compara a potência Alfa (8-13 Hz) entre gravações de olhos abertos e fechados,
+# antes e depois do filtro. Serve para confirmar o Efeito Berger.
+
 # traz o numpy, ferramenta pra trabalhar com números e listas de forma eficiente
 import numpy as np
 

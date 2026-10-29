@@ -42,6 +42,8 @@
     # print(f"Convertido! {num_amostras} amostras salvas em gravacao_ruido.csv")
 
 # ====================================================================================
+# Converte gravações .edf do PhysioNet para CSV no formato do BrainFlow.
+# Escolhe os 16 canais pelo NOME e usa a taxa de amostragem real do arquivo.
 
 # VERSAO COM A LEITURA DOS CANAIS DO ARQUIVO
 # traz a ferramenta que sabe ler arquivos .edf

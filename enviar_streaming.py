@@ -1,3 +1,5 @@
+# Envia uma gravação para o app OpenBCI como se fosse ao vivo (Streaming Board).
+
 # traz as 3 ferramentas do BrainFlow: gerenciador de conexão, caixa de configurações, e lista de fontes possíveis
 from brainflow.board_shim import BoardShim, BrainFlowInputParams, BoardIds
 

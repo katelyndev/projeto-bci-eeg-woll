@@ -1,3 +1,7 @@
+# Decide se os olhos estão abertos ou fechados, pela potência Alfa (8-13 Hz).
+# Calcula a potência no canal O1, compara com o limite (150) e devolve 0 ou 1.
+# Também tem a simulação que lê as gravações e chama a função de atualização.
+
 # traz a ferramenta numpy que trabalha com numeros e listas de forma eficiente 
 import numpy as np
 
