@@ -1,0 +1,102 @@
+
+=======================================================
+SESSÃO: S001E01
+Limiar de amplitude: 268.72
+Janelas relax: 13/15 | foco: 14/15
+
+Beta isolada
+  Média relax: 14.5309
+  Média foco:  12.0117
+  Z-score médio do foco: -0.825
+
+Engagement Index
+  Média relax: 0.6697
+  Média foco:  0.7558
+  Z-score médio do foco: +0.234
+
+Observação: resultados exploratórios, não classificação validada.
+
+=======================================================
+SESSÃO: S001E02
+Limiar de amplitude: 130.43
+Janelas relax: 13/15 | foco: 15/15
+
+Beta isolada
+  Média relax: 14.0871
+  Média foco:  12.3920
+  Z-score médio do foco: -0.392
+
+Engagement Index
+  Média relax: 0.6184
+  Média foco:  0.6822
+  Z-score médio do foco: +0.225
+
+Observação: resultados exploratórios, não classificação validada.
+
+=======================================================
+SESSÃO: S002E01
+Limiar de amplitude: 546.12
+Janelas relax: 11/15 | foco: 9/15
+
+Beta isolada
+  Média relax: 71.6749
+  Média foco:  62.2197
+  Z-score médio do foco: -0.595
+
+Engagement Index
+  Média relax: 0.3947
+  Média foco:  0.3170
+  Z-score médio do foco: -0.477
+
+Observação: resultados exploratórios, não classificação validada.
+
+=======================================================
+SESSÃO: S002E02
+Limiar de amplitude: 325.17
+Janelas relax: 14/15 | foco: 13/15
+
+Beta isolada
+  Média relax: 58.1945
+  Média foco:  65.7740
+  Z-score médio do foco: +0.796
+
+Engagement Index
+  Média relax: 0.3220
+  Média foco:  0.3564
+  Z-score médio do foco: +0.379
+
+Observação: resultados exploratórios, não classificação validada.
+
+=======================================================
+SESSÃO: S003E01
+Limiar de amplitude: 126.34
+Janelas relax: 12/15 | foco: 13/15
+
+Beta isolada
+  Média relax: 6.6069
+  Média foco:  7.8657
+  Z-score médio do foco: +1.514
+
+Engagement Index
+  Média relax: 0.3993
+  Média foco:  0.4508
+  Z-score médio do foco: +0.390
+
+Observação: resultados exploratórios, não classificação validada.
+
+=======================================================
+SESSÃO: S003E02
+Limiar de amplitude: 100.51
+Janelas relax: 14/15 | foco: 15/15
+
+Beta isolada
+  Média relax: 10.1816
+  Média foco:  11.0742
+  Z-score médio do foco: +0.478
+
+Engagement Index
+  Média relax: 0.3883
+  Média foco:  0.3913
+  Z-score médio do foco: +0.022
+
+Observação: resultados exploratórios, não classificação validada.

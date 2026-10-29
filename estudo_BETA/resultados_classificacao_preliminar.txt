@@ -1,0 +1,55 @@
+CLASSIFICACAO BETA VS ENGAGEMENT INDEX
+Calibracao: E01 | Avaliacao: E02
+Canal: F3 | Janelas: 4 segundos
+
+=======================================================
+PARTICIPANTE: S001
+Treino: 13 relax / 14 foco
+Teste: 13 relax / 15 foco
+
+Beta isolada
+  Repouso: 6/13
+  Foco: 11/15
+  Acuracia balanceada: 59.7%
+
+Engagement Index
+  Repouso: 6/13
+  Foco: 7/15
+  Acuracia balanceada: 46.4%
+
+=======================================================
+PARTICIPANTE: S002
+Treino: 11 relax / 9 foco
+Teste: 14 relax / 13 foco
+
+Beta isolada
+  Repouso: 2/14
+  Foco: 8/13
+  Acuracia balanceada: 37.9%
+
+Engagement Index
+  Repouso: 8/14
+  Foco: 7/13
+  Acuracia balanceada: 55.5%
+
+=======================================================
+PARTICIPANTE: S003
+Treino: 12 relax / 13 foco
+Teste: 14 relax / 15 foco
+
+Beta isolada
+  Repouso: 0/14
+  Foco: 15/15
+  Acuracia balanceada: 50.0%
+
+Engagement Index
+  Repouso: 8/14
+  Foco: 6/15
+  Acuracia balanceada: 48.6%
+
+=======================================================
+RESUMO EXPLORATORIO
+Beta isolada: 49.2% de acuracia balanceada media
+Engagement Index: 50.2% de acuracia balanceada media
+
+Limitacoes: apenas 3 participantes, uma sessao de teste por pessoa.

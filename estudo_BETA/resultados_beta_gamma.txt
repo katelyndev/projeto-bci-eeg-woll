@@ -1,0 +1,11 @@
+=== BETA ISOLADA ===
+S001: 58.1% (relax=14, foco=15)
+S002: 42.1% (relax=15, foco=14)
+S003: 50.0% (relax=14, foco=15)
+Media beta: 50.1%
+
+=== RELACAO BETA/GAMMA ===
+S001: 54.8% (relax=14, foco=15)
+S002: 51.9% (relax=15, foco=14)
+S003: 38.3% (relax=14, foco=15)
+Media beta_gamma: 48.3%
