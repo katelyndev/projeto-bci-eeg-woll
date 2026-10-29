@@ -28,7 +28,7 @@ JANELA_SEGUNDOS = 4
 # limite de "pico a pico" (maior valor menos menor valor) da janela;
 # acima disso a janela é considerada ruído forte e é descartada
 # (300 é um valor escolhido por nós para testar, não vem de nenhum estudo)
-LIMITE_PICO_A_PICO = 300
+LIMITE_PICO_A_PICO = 100000
 
 # descobre em qual pasta este script está salvo
 PASTA = Path(__file__).resolve().parent

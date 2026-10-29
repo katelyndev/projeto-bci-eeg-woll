@@ -1,3 +1,6 @@
+# Teste de Beta com calibração por pessoa, no dataset de concentração
+# (relax1 x foco). O limite é a mediana das 5 primeiras janelas do relax.
+
 # Script adaptado de teste_beta2.py, pro dataset de CONCENTRAÇÃO
 # (relax x foco), em vez do dataset de estresse (natural x highlevel)
 
