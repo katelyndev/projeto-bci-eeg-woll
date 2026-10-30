@@ -18,7 +18,7 @@ from analise_beta import calcular_beta
 pasta_projeto = Path(__file__).resolve().parent
 
 # define qual pessoa vamos analisar nessa execução
-sujeito = "S001E01"
+sujeito = "S001E02"
 
 # taxa de amostragem real desse dataset (EMOTIV EPOC+)
 fs = 256
