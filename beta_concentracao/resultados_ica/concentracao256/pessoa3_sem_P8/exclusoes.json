@@ -1,0 +1,23 @@
+{
+  "Relax1": {
+    "arquivo": "gravacao_concentracao_relax1_S003E01.csv",
+    "sha256": "ceeb99d8e1f829299735eabad49780738994a132e45d7bd55fed181c7e3d7c1d",
+    "modelo_sha256": "1d4b8f1ec6b8d45e07165222fcfd31bc1130dcb185260e621377b1bf3fab2360",
+    "excluir": [3],
+    "justificativa": "Teste exploratorio: IC 3 apresenta eventos alinhados aos picos do F3 nos primeiros 8 segundos e maior peso nesse canal. Origem nao confirmada; avaliar efeitos dentro e fora desses eventos."
+  },
+  "Foco": {
+    "arquivo": "gravacao_concentracao_foco_S003E01.csv",
+    "sha256": "f90e2bff4931ba359feb467d076032b4f4a4e88b20e0ef462cba74eb7546c7b8",
+    "modelo_sha256": "87ca95fd1a08e7705bf87f88106f255585c750f458cf6e68a5ca9f69ba1a066f",
+    "excluir": [],
+    "justificativa": ""
+  },
+  "Relax2": {
+    "arquivo": "gravacao_concentracao_relax2_S003E01.csv",
+    "sha256": "2bde4f088288689601c702431c1260efc82c5ca43ab874020479efd607b16ca4",
+    "modelo_sha256": "184a1946d537a4910f50293840a3a72a7eace757da0e6cd7e6cadc3df9e6fd71",
+    "excluir": [],
+    "justificativa": ""
+  }
+}

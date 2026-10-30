@@ -1,0 +1,23 @@
+{
+  "Relax1": {
+    "arquivo": "gravacao_concentracao_relax1_S002E02.csv",
+    "sha256": "ae4ac5ecb05c0f0be726a321e2c0fd1ed15fa301c4c6e1a8646fd51b77843fdf",
+    "modelo_sha256": "20f0db05c4cb924bc7656e9179aaf42e88e097630e87d6b33fdb97249a502e32",
+    "excluir": [],
+    "justificativa": ""
+  },
+  "Foco": {
+    "arquivo": "gravacao_concentracao_foco_S002E02.csv",
+    "sha256": "d012fbe8ab316c895c65834ad60561639dd0a056745a6ca82a561c3812e6381c",
+    "modelo_sha256": "906c79687e85df9fc474ba7511a320633fd33fb527d941aaed1d9f15499a9a0c",
+    "excluir": [],
+    "justificativa": ""
+  },
+  "Relax2": {
+    "arquivo": "gravacao_concentracao_relax2_S002E02.csv",
+    "sha256": "b359ad5eb178f85107005b08a66a73e64804263a684821c7f39f1150bd8f2918",
+    "modelo_sha256": "ccc2312d4ad71b2298ca90bc23190da6a2dd21478bb2a558dc2be9aa6aebd303",
+    "excluir": [],
+    "justificativa": ""
+  }
+}

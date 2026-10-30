@@ -137,10 +137,21 @@ def salvar_graficos(componentes, modelo, antes, depois, canal, destino, nome):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--pessoa", type=int, choices=(1, 2, 3), default=1)
+    parser.add_argument("--sessao", type=int, choices=(1, 2), default=1)
     parser.add_argument("--canal", choices=CANAIS, default="F3")
     parser.add_argument("--etapa", choices=("revisar", "comparar"), default="revisar")
+    parser.add_argument(
+        "--exportar",
+        action="store_true",
+        help="Salva os sinais antes e depois da exclusão pelo ICA."
+    )
     args = parser.parse_args()
-    destino = PASTA / "resultados_ica" / "concentracao256" / f"pessoa{args.pessoa}"
+    if args.sessao == 1:
+        nome_saida = f"pessoa{args.pessoa}"
+    else:
+        nome_saida = f"pessoa{args.pessoa}_E02"
+
+    destino = PASTA / "resultados_ica" / "concentracao256" / nome_saida
     destino.mkdir(parents=True, exist_ok=True)
     caminho_config = destino / "exclusoes.json"
     configuracao = json.loads(caminho_config.read_text()) if caminho_config.exists() else {}
@@ -149,11 +160,11 @@ def main():
     ica = importar_ica()
     canal = CANAIS.index(args.canal)
     resumo, janelas, propostas = [], [], {}
-    print(f"Pessoa S{args.pessoa:03d}E01; {FS} Hz; canal {args.canal}; 60 s; janelas de 4 s.")
+    print(f"Pessoa S{args.pessoa:03d}E{args.sessao:02d}; {FS} Hz; canal {args.canal}; 60 s; janelas de 4 s.")
     print("Comparação offline: os 14 canais recebem o mesmo filtro inicial de 1–40 Hz.")
     print("Relax1 = olhos abertos; Foco = tarefa; Relax2 = olhos fechados (condições separadas).")
     for condicao, prefixo in CONDICOES:
-        caminho = PASTA / f"gravacao_concentracao_{prefixo}_S{args.pessoa:03d}E01.csv"
+        caminho = PASTA / f"gravacao_concentracao_{prefixo}_S{args.pessoa:03d}E{args.sessao:02d}.csv"
         eeg = ler_e_filtrar(caminho)
         # O conversor lê as amplitudes físicas do EDF em microvolts.
         # As funções do Matheus convertem para volts e retornam microvolts.
@@ -182,6 +193,26 @@ def main():
                                    nomes_canais=CANAIS, aplicar_filtro=False) if excluir else controle
         if depois.shape != eeg.shape or not np.isfinite(depois).all():
             raise RuntimeError("Reconstrução inválida.")
+        if args.exportar and args.etapa == "comparar":
+            pasta_exportacao = destino / "gravacoes_comparacao"
+
+            for versao, sinal in (
+                ("antes_ica", eeg),
+                ("depois_ica", depois)
+            ):
+                pasta_versao = pasta_exportacao / versao
+                pasta_versao.mkdir(parents=True, exist_ok=True)
+
+                arquivo_saida = pasta_versao / caminho.name
+
+                np.savetxt(
+                    arquivo_saida,
+                    sinal.T,
+                    delimiter="\t",
+                    fmt="%.17g"
+                )
+
+                print(f"Gravação salva: {arquivo_saida}")        
         total_antes, beta_antes, relativo_antes = medir(eeg[canal])
         total_depois, beta_depois, relativo_depois = medir(depois[canal])
         variacao = 100*(total_depois-total_antes)/total_antes if total_antes > 0 else None
