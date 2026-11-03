@@ -9,6 +9,7 @@
 </head>
 <body>
     <h1>Monitoramento de Imaginação Motora</h1>
+
     <p id="legenda">
         Onda Mu — imaginação da mão esquerda / direita
     </p>
@@ -42,6 +43,7 @@
         <p>C4: <strong id="mu-c4">--</strong> µV²</p>
 
         <p id="tempo-gravacao">Tempo: --</p>
+
         <small id="origem-estado">
             Aguardando informações do EEG...
         </small>
@@ -50,6 +52,7 @@
     <script>
         const ponteiro = document.getElementById("ponteiro");
         const texto = document.getElementById("texto-estado");
+
         const botao = document.getElementById("botao");
         const botaoAutomatico =
             document.getElementById("botao-automatico");
@@ -75,19 +78,27 @@
             if (estado === "T1") {
                 ponteiro.style.left = "0px";
                 ponteiro.style.backgroundColor = "#d1356f";
-                texto.textContent = "Imaginando: mão esquerda";
+                texto.textContent = "Previsão: mão esquerda";
 
             } else if (estado === "T2") {
                 ponteiro.style.left = "calc(100% - 50px)";
                 ponteiro.style.backgroundColor = "#1f77b4";
-                texto.textContent = "Imaginando: mão direita";
+                texto.textContent = "Previsão: mão direita";
 
             } else if (estado === "T0") {
                 ponteiro.style.left = "calc(50% - 25px)";
                 ponteiro.style.backgroundColor = "#999999";
-                texto.textContent = "Estado: repouso";
+                texto.textContent = "Previsão: repouso";
+
+            } else if (estado === "Indisponível") {
+                ponteiro.style.left = "calc(50% - 25px)";
+                ponteiro.style.backgroundColor = "#999999";
+                texto.textContent =
+                    "Aguardando janela de EEG para classificação...";
 
             } else {
+                ponteiro.style.left = "calc(50% - 25px)";
+                ponteiro.style.backgroundColor = "#999999";
                 texto.textContent = "Estado desconhecido";
             }
         }
@@ -155,20 +166,22 @@
                 );
 
                 if (!resposta.ok) {
-                    throw new Error("Falha ao consultar o servidor");
+                    throw new Error(
+                        "Falha ao consultar o servidor"
+                    );
                 }
 
                 const dados = await resposta.json();
 
-                // Potência Mu sempre vem do EEG
+                // A potência Mu sempre vem do EEG filtrado
                 atualizarPotencia(dados);
 
-                // Estado automático vem das anotações EDF
+                // No modo automático, usar a previsão do LDA
                 if (!modoSimulacao) {
                     atualizarPonteiro(dados.estado);
 
                     origemEstado.textContent =
-                        "Estado: anotações da gravação EDF. " +
+                        "Estado: previsão do classificador Mu (LDA). " +
                         "Potência Mu: calculada do EEG.";
                 }
 
@@ -178,15 +191,16 @@
                 if (!modoSimulacao) {
                     texto.textContent =
                         "Erro de conexão com o servidor";
-                }
 
-                origemEstado.textContent =
-                    "Sem conexão com o backend.";
+                    origemEstado.textContent =
+                        "Sem conexão com o backend.";
+                }
             }
         }
 
-        atualizarPonteiro("T0");
+        atualizarPonteiro("Indisponível");
         consultarEstado();
+
         setInterval(consultarEstado, 1000);
     </script>
 </body>
