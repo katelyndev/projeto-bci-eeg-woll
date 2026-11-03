@@ -38,10 +38,10 @@ print(f"Gravação: {SESSAO} | FS: {FS} Hz | Limite: {LIMITE_PICO_A_PICO} µV | 
 # FUNÇÕES
 # ---------------------------------------------------------------
 
-# lê um trecho da gravação (relax1 ou foco) e devolve só o sinal do canal F3
-def ler_sinal(trecho):
-    # monta o caminho do arquivo CSV desse trecho, usando o nome da sessão
-    caminho = PASTA / f"gravacao_concentracao_{trecho}_{SESSAO}.csv"
+# lê um trecho (relax1 ou foco) de uma sessão e devolve só o sinal do canal F3
+def ler_sinal(trecho, sessao):
+    # monta o caminho do arquivo CSV, usando o trecho e a sessão recebidos
+    caminho = PASTA / f"gravacao_concentracao_{trecho}_{sessao}.csv"
     # lê o arquivo inteiro (14 linhas, uma por canal)
     dados = DataFilter.read_file(str(caminho))
     # pega só a linha do canal F3 e garante que são números decimais
@@ -90,17 +90,40 @@ def medir_janelas(sinal):
     return janelas
 
 
-# ---------------------------------------------------------------
-# TESTE TEMPORÁRIO (vamos apagar quando fizermos o bloco 4)
-# ---------------------------------------------------------------
+# lista com as 6 gravações que vamos classificar
+SESSOES = ["S001E01", "S001E02", "S002E01", "S002E02", "S003E01", "S003E02"]
 
-# repete para os dois trechos da sessão: primeiro o relax1, depois o foco
-for trecho in ["relax1", "foco"]:
-    # imprime um título, pra separar visualmente cada trecho
-    print(f"\n--- {SESSAO} | {trecho} ---")
-    # mede as janelas desse trecho e percorre uma por uma, com o número (começando em 1)
-    for numero, j in enumerate(medir_janelas(ler_sinal(trecho)), start=1):
-        # se o pico a pico original passou do limite, cria um aviso; senão, deixa em branco
-        marca = "  <-- acima do limite" if j["pp_original"] > LIMITE_PICO_A_PICO else ""
-        # mostra a linha da janela, com o aviso no final quando houver
-        print(f"Janela {numero:2d} | {j['tempo']:5.1f} s | original {j['pp_original']:7.1f} | sem parte lenta {j['pp_sem_lenta']:7.1f}{marca}")
+
+# recebe os números de UMA janela e diz se ela é normal, deriva lenta ou ruído rápido
+def classificar(janela):
+    # se o pico a pico original não passa do limite, a janela é normal
+    if janela["pp_original"] <= LIMITE_PICO_A_PICO:
+        return "normal"
+    # passou do limite; se sem a parte lenta ele cai abaixo, era só deriva lenta
+    if janela["pp_sem_lenta"] <= LIMITE_PICO_A_PICO:
+        return "deriva lenta"
+    # passou do limite nos dois casos: é um evento rápido e forte
+    return "ruído rápido"
+
+
+# contadores do total geral (começam em zero)
+total = {"normal": 0, "deriva lenta": 0, "ruído rápido": 0}
+
+# repete para cada uma das 6 gravações
+for sessao in SESSOES:
+    # e, dentro de cada gravação, para os dois trechos
+    for trecho in ["relax1", "foco"]:
+        # mede todas as janelas desse trecho
+        janelas = medir_janelas(ler_sinal(trecho, sessao))
+        # classifica cada janela, guardando o resultado numa lista
+        classes = [classificar(j) for j in janelas]
+        # soma o que encontrou no total geral
+        for c in classes:
+            total[c] += 1
+        # descobre em que segundo começam as janelas de ruído rápido
+        tempos_rapidos = [int(j["tempo"]) for j, c in zip(janelas, classes) if c == "ruído rápido"]
+        # mostra uma linha de resumo para este trecho
+        print(f"{sessao} | {trecho:6s} | normal {classes.count('normal'):2d} | deriva lenta {classes.count('deriva lenta'):2d} | ruído rápido {classes.count('ruído rápido'):2d} | rápidos em (s): {tempos_rapidos}")
+
+# mostra o total das 6 gravações
+print(f"\nTOTAL | normal {total['normal']} | deriva lenta {total['deriva lenta']} | ruído rápido {total['ruído rápido']}")
