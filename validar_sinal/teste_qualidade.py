@@ -1,6 +1,6 @@
 import numpy as np
 
-from qualidade import validar_qualidade
+from validar_sinal.qualidade import validar_qualidade
 
 
 nomes_canais = ["F3", "P8", "F4"]
@@ -28,4 +28,13 @@ dados_sem_problemas = np.array([
 resultado = validar_qualidade(dados_sem_problemas, nomes_canais)
 
 print("\nTeste sem problemas previstos:")
+print(resultado)
+
+dados_com_infinito = np.array([
+    [1.0, np.inf, 3.0, 2.0]
+])
+
+resultado = validar_qualidade(dados_com_infinito, ["F3"])
+
+print("\nTeste com infinito:")
 print(resultado)
