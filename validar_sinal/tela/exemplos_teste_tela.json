@@ -1,0 +1,30 @@
+[
+  {
+    "janela": 1,
+    "intervalo": [0, 4],
+    "canais": ["AF3", "F7", "F3", "FC5", "T7", "P7", "O1", "O2", "P8", "T8", "FC6", "F4", "F8", "AF4"],
+    "necessarios": ["F3"],
+    "alertas": [],
+    "estado": "focado"
+  },
+  {
+    "janela": 2,
+    "intervalo": [4, 8],
+    "canais": ["AF3", "F7", "F3", "FC5", "T7", "P7", "O1", "O2", "P8", "T8", "FC6", "F4", "F8", "AF4"],
+    "necessarios": ["F3"],
+    "alertas": [
+      {"canal": "P8", "motivo": "canal_constante"}
+    ],
+    "estado": "focado"
+  },
+  {
+    "janela": 3,
+    "intervalo": [8, 12],
+    "canais": ["AF3", "F7", "F3", "FC5", "T7", "P7", "O1", "O2", "P8", "T8", "FC6", "F4", "F8", "AF4"],
+    "necessarios": ["F3"],
+    "alertas": [
+      {"canal": "F3", "motivo": "canal_constante"}
+    ],
+    "estado": "sem_decisao"
+  }
+]
