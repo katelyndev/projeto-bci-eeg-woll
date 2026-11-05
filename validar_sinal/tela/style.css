@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    text-align: center;
+}
+
+#quadrado {
+    width: 200px;
+    height: 200px;
+    margin: 20px auto;
+    border-radius: 12px;
+    background: #cccccc;
+}
+
+#quadrado.focado {
+    background: #2e9e4f;
+}
+
+#quadrado.relaxado {
+    background: #e8832a;
+}
+
+#quadrado.sem-decisao {
+    background: #555555;
+    border: 4px dashed #222222; /*linha tracejada dashed*/
+}
+
+#quadrado.aguardando {
+    background: #dddddd;
+}
+
+/* texto que explica o estado */
+#texto-estado {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* a grade que organiza os cartões em linhas */
+#grade {
+    /* cria colunas automáticas: cada cartão tem 110 pixels de largura */
+    display: grid;
+    grid-template-columns: repeat(7, 110px);
+    /* espaço de 12 pixels entre os cartões, na horizontal e na vertical */
+    gap: 12px;
+    /* centraliza a grade na página */
+    justify-content: center;
+    margin: 20px auto;
+}
+
+/* cada cartão de canal */
+.cartao {
+    /* tamanho fixo do cartão */
+    width: 110px;
+    height: 80px;
+    /* cantos arredondados */
+    border-radius: 8px;
+    /* borda de 2 pixels, a cor vem de cada estado */
+    border: 2px solid;
+    /* organiza nome e estado um embaixo do outro */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* estado: sem problema (verde) */
+.cartao.ok {
+    background: #d9f2e0;
+    border-color: #2e9e4f;
+}
+
+/* estado: aviso, canal não usado (amarelo) */
+.cartao.aviso {
+    background: #fff3c4;
+    border-color: #e0a800;
+}
+
+/* estado: bloqueio, canal usado (vermelho) */
+.cartao.bloqueio {
+    background: #f8d7da;
+    border-color: #c0392b;
+}
