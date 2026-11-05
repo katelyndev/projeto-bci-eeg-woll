@@ -1,0 +1,432 @@
+[
+  {
+    "janela": 1,
+    "intervalo": [
+      0,
+      4
+    ],
+    "canais": [
+      "AF3",
+      "F7",
+      "F3",
+      "FC5",
+      "T7",
+      "P7",
+      "O1",
+      "O2",
+      "P8",
+      "T8",
+      "FC6",
+      "F4",
+      "F8",
+      "AF4"
+    ],
+    "necessarios": [
+      "F3"
+    ],
+    "alertas": [
+      {
+        "canal": "P8",
+        "motivo": "canal_constante"
+      }
+    ],
+    "estado": "aguardando"
+  },
+  {
+    "janela": 2,
+    "intervalo": [
+      4,
+      8
+    ],
+    "canais": [
+      "AF3",
+      "F7",
+      "F3",
+      "FC5",
+      "T7",
+      "P7",
+      "O1",
+      "O2",
+      "P8",
+      "T8",
+      "FC6",
+      "F4",
+      "F8",
+      "AF4"
+    ],
+    "necessarios": [
+      "F3"
+    ],
+    "alertas": [
+      {
+        "canal": "P8",
+        "motivo": "canal_constante"
+      }
+    ],
+    "estado": "aguardando"
+  },
+  {
+    "janela": 3,
+    "intervalo": [
+      8,
+      12
+    ],
+    "canais": [
+      "AF3",
+      "F7",
+      "F3",
+      "FC5",
+      "T7",
+      "P7",
+      "O1",
+      "O2",
+      "P8",
+      "T8",
+      "FC6",
+      "F4",
+      "F8",
+      "AF4"
+    ],
+    "necessarios": [
+      "F3"
+    ],
+    "alertas": [],
+    "estado": "aguardando"
+  },
+  {
+    "janela": 4,
+    "intervalo": [
+      12,
+      16
+    ],
+    "canais": [
+      "AF3",
+      "F7",
+      "F3",
+      "FC5",
+      "T7",
+      "P7",
+      "O1",
+      "O2",
+      "P8",
+      "T8",
+      "FC6",
+      "F4",
+      "F8",
+      "AF4"
+    ],
+    "necessarios": [
+      "F3"
+    ],
+    "alertas": [],
+    "estado": "aguardando"
+  },
+  {
+    "janela": 5,
+    "intervalo": [
+      16,
+      20
+    ],
+    "canais": [
+      "AF3",
+      "F7",
+      "F3",
+      "FC5",
+      "T7",
+      "P7",
+      "O1",
+      "O2",
+      "P8",
+      "T8",
+      "FC6",
+      "F4",
+      "F8",
+      "AF4"
+    ],
+    "necessarios": [
+      "F3"
+    ],
+    "alertas": [],
+    "estado": "aguardando"
+  },
+  {
+    "janela": 6,
+    "intervalo": [
+      20,
+      24
+    ],
+    "canais": [
+      "AF3",
+      "F7",
+      "F3",
+      "FC5",
+      "T7",
+      "P7",
+      "O1",
+      "O2",
+      "P8",
+      "T8",
+      "FC6",
+      "F4",
+      "F8",
+      "AF4"
+    ],
+    "necessarios": [
+      "F3"
+    ],
+    "alertas": [],
+    "estado": "aguardando"
+  },
+  {
+    "janela": 7,
+    "intervalo": [
+      24,
+      28
+    ],
+    "canais": [
+      "AF3",
+      "F7",
+      "F3",
+      "FC5",
+      "T7",
+      "P7",
+      "O1",
+      "O2",
+      "P8",
+      "T8",
+      "FC6",
+      "F4",
+      "F8",
+      "AF4"
+    ],
+    "necessarios": [
+      "F3"
+    ],
+    "alertas": [],
+    "estado": "aguardando"
+  },
+  {
+    "janela": 8,
+    "intervalo": [
+      28,
+      32
+    ],
+    "canais": [
+      "AF3",
+      "F7",
+      "F3",
+      "FC5",
+      "T7",
+      "P7",
+      "O1",
+      "O2",
+      "P8",
+      "T8",
+      "FC6",
+      "F4",
+      "F8",
+      "AF4"
+    ],
+    "necessarios": [
+      "F3"
+    ],
+    "alertas": [],
+    "estado": "aguardando"
+  },
+  {
+    "janela": 9,
+    "intervalo": [
+      32,
+      36
+    ],
+    "canais": [
+      "AF3",
+      "F7",
+      "F3",
+      "FC5",
+      "T7",
+      "P7",
+      "O1",
+      "O2",
+      "P8",
+      "T8",
+      "FC6",
+      "F4",
+      "F8",
+      "AF4"
+    ],
+    "necessarios": [
+      "F3"
+    ],
+    "alertas": [],
+    "estado": "aguardando"
+  },
+  {
+    "janela": 10,
+    "intervalo": [
+      36,
+      40
+    ],
+    "canais": [
+      "AF3",
+      "F7",
+      "F3",
+      "FC5",
+      "T7",
+      "P7",
+      "O1",
+      "O2",
+      "P8",
+      "T8",
+      "FC6",
+      "F4",
+      "F8",
+      "AF4"
+    ],
+    "necessarios": [
+      "F3"
+    ],
+    "alertas": [],
+    "estado": "aguardando"
+  },
+  {
+    "janela": 11,
+    "intervalo": [
+      40,
+      44
+    ],
+    "canais": [
+      "AF3",
+      "F7",
+      "F3",
+      "FC5",
+      "T7",
+      "P7",
+      "O1",
+      "O2",
+      "P8",
+      "T8",
+      "FC6",
+      "F4",
+      "F8",
+      "AF4"
+    ],
+    "necessarios": [
+      "F3"
+    ],
+    "alertas": [],
+    "estado": "aguardando"
+  },
+  {
+    "janela": 12,
+    "intervalo": [
+      44,
+      48
+    ],
+    "canais": [
+      "AF3",
+      "F7",
+      "F3",
+      "FC5",
+      "T7",
+      "P7",
+      "O1",
+      "O2",
+      "P8",
+      "T8",
+      "FC6",
+      "F4",
+      "F8",
+      "AF4"
+    ],
+    "necessarios": [
+      "F3"
+    ],
+    "alertas": [],
+    "estado": "aguardando"
+  },
+  {
+    "janela": 13,
+    "intervalo": [
+      48,
+      52
+    ],
+    "canais": [
+      "AF3",
+      "F7",
+      "F3",
+      "FC5",
+      "T7",
+      "P7",
+      "O1",
+      "O2",
+      "P8",
+      "T8",
+      "FC6",
+      "F4",
+      "F8",
+      "AF4"
+    ],
+    "necessarios": [
+      "F3"
+    ],
+    "alertas": [],
+    "estado": "aguardando"
+  },
+  {
+    "janela": 14,
+    "intervalo": [
+      52,
+      56
+    ],
+    "canais": [
+      "AF3",
+      "F7",
+      "F3",
+      "FC5",
+      "T7",
+      "P7",
+      "O1",
+      "O2",
+      "P8",
+      "T8",
+      "FC6",
+      "F4",
+      "F8",
+      "AF4"
+    ],
+    "necessarios": [
+      "F3"
+    ],
+    "alertas": [],
+    "estado": "aguardando"
+  },
+  {
+    "janela": 15,
+    "intervalo": [
+      56,
+      60
+    ],
+    "canais": [
+      "AF3",
+      "F7",
+      "F3",
+      "FC5",
+      "T7",
+      "P7",
+      "O1",
+      "O2",
+      "P8",
+      "T8",
+      "FC6",
+      "F4",
+      "F8",
+      "AF4"
+    ],
+    "necessarios": [
+      "F3"
+    ],
+    "alertas": [],
+    "estado": "aguardando"
+  }
+]
