@@ -1,6 +1,9 @@
 // mostra as janelas de exemplo uma de cada vez 
 // lê o arquivo exemplos_teste_tela.json e atualiza a tela a cada 3 segundos
 
+// arquivo de dados que a tela lê; troque aqui para usar outra fonte
+const ARQUIVO_DADOS = "janelas_reais.json"; 
+
 // cria a variavel janelas e comeca ela com uma lista vazia []
 let janelas = [];
 
@@ -10,7 +13,7 @@ let posicao = 0;
 // funcao que le os arquivos de exeplo e guarda as janelas 
 async function carregar(){
     // pede ao servidor o arquivo json e quarda a resposta em uma variavel
-    const resposta = await fetch("exemplos_teste_tela.json");
+    const resposta = await fetch(ARQUIVO_DADOS);
     // pega a resposta que chegou do servidor e transforma na lista de janelas e assim guardando na variavel janelas
     janelas = await resposta.json();
 }
@@ -20,6 +23,8 @@ function textoDoEstado(estado){
     // se o estado recebido for exatamente igual a "focado" sendo exatamente igual retorna 
     if(estado === "focado") return "Focado"; 
     if(estado === "relaxado") return "Relaxado";
+    // "aguardando" = ainda não há análise para esta janela; não é problema no sinal
+    if (estado === "aguardando") return "Aguardando análise";
 
     return "Sem decisão - problema no sinal";
 }
