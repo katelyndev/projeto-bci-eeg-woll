@@ -38,3 +38,42 @@ resultado = validar_qualidade(dados_com_infinito, ["F3"])
 
 print("\nTeste com infinito:")
 print(resultado)
+
+print("\nTeste com quantidade incorreta de nomes:")
+
+try:
+    validar_qualidade(
+        np.array([
+            [1.0, 2.0, 3.0],
+            [4.0, 5.0, 6.0]
+        ]),
+        ["F3"]
+    )
+except ValueError as erro:
+    print("Erro identificado:", erro)
+else:
+    raise AssertionError("A entrada incorreta foi aceita.")
+
+print("\nTeste com janela vazia:")
+
+try:
+    validar_qualidade(
+        np.empty((1, 0)),
+        ["F3"]
+    )
+except ValueError as erro:
+    print("Erro identificado:", erro)
+else:
+    raise AssertionError("A janela vazia foi aceita.")
+
+print("\nTeste com dados em uma dimensão:")
+
+try:
+    validar_qualidade(
+        np.array([1.0, 2.0, 3.0]),
+        ["F3"]
+    )
+except ValueError as erro:
+    print("Erro identificado:", erro)
+else:
+    raise AssertionError("Os dados em uma dimensão foram aceitos.")

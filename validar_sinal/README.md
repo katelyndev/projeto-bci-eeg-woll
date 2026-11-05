@@ -100,3 +100,10 @@ python -m validar_sinal.teste_retorno
 - Retorno de 15 janelas, cada uma com formato (14, 1024).
 - Importação e chamada do leitor por outro módulo.
 - Com recorte temporário de 61 segundos: 15 janelas e sobra de 1 segundo.
+- Quantidade de nomes diferente da quantidade de canais gera erro.
+- Janela sem amostras gera erro.
+- Dados em uma dimensão geram erro.
+- Integração com a regra de qualidade usando alertas da gravação real:
+  alerta em canal não necessário permite continuar;
+  alerta em canal necessário retorna sem_decisao;
+  janela posterior sem alertas permite continuar.
