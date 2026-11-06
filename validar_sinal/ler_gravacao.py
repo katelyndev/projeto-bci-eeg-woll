@@ -10,9 +10,9 @@ import numpy as np
 def preparar_gravacao():
 
     raiz_projeto = Path(__file__).resolve().parent.parent
-    arquivo = raiz_projeto / "beta_concentracao" / "S002E01.edf"
+    # arquivo = raiz_projeto / "beta_concentracao" / "S002E01.edf"
     # arquivo = raiz_projeto / "beta_concentracao" / "S001E01.edf"
-    # arquivo = raiz_projeto / "beta_concentracao" / "S003E01.edf"
+    arquivo = raiz_projeto / "beta_concentracao" / "S003E01.edf"
 
     with pyedflib.EdfReader(str(arquivo)) as gravacao:
         nomes_canais = gravacao.getSignalLabels()
