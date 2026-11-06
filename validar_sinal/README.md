@@ -107,3 +107,7 @@ python -m validar_sinal.teste_retorno
   alerta em canal não necessário permite continuar;
   alerta em canal necessário retorna sem_decisao;
   janela posterior sem alertas permite continuar.
+
+  # Arquivo de saída da tela
+
+O `tela/janelas_reais.json` é a saída de teste do `tela/gerar_janelas_reais.py`, gerada a partir da gravação `beta_concentracao/S003E01.edf` (primeiros 60 segundos, 15 janelas de 4 segundos). Ele é regenerado quando a gravação ou a verificação mudar. Todas as janelas saem com `estado: "aguardando"`, porque ainda não há análise ligada a esse pipeline.
