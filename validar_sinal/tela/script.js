@@ -70,7 +70,8 @@ function desenharGrade(janela) {
         const cartao = document.createElement("div");
         // dá ao cartão a classe "cartao" e a classe do estado, por exemplo "cartao bloqueio"
         cartao.className = "cartao " + estado;
-        // escreve o nome do canal e a palavra do estado dentro do cartão
+        // monta o cartão com nome, situação e motivo, cada um em uma linha
+        // monta o cartão com nome e situação
         cartao.innerHTML = "<strong>" + canal + "</strong><span>" + rotuloDoCartao(estado) + "</span>";
         // coloca o cartão dentro da grade
         grade.appendChild(cartao);
