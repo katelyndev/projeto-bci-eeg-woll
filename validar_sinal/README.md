@@ -111,3 +111,17 @@ python -m validar_sinal.teste_retorno
   # Arquivo de saída da tela
 
 O `tela/janelas_reais.json` é a saída de teste do `tela/gerar_janelas_reais.py`, gerada a partir da gravação `beta_concentracao/S003E01.edf` (primeiros 60 segundos, 15 janelas de 4 segundos). Ele é regenerado quando a gravação ou a verificação mudar. Todas as janelas saem com `estado: "aguardando"`, porque ainda não há análise ligada a esse pipeline.
+
+## Gravações de concentração usadas nos testes
+
+Todas as gravações têm 14 canais, 256 Hz e 60 segundos lidos pelo leitor (`ler_gravacao.py`).
+
+| Arquivo | Origem | Resultado da verificação |
+|---|---|---|
+| `beta_concentracao/S003E01.edf` | Mendeley, DOI 10.17632/8c26dn6c7w.1, convertida para os testes de concentração | P8 constante em 0–4 s e 4–8 s; demais janelas sem alerta |
+| `beta_concentracao/S001E01.edf` | [confirmar origem] | P8 constante em 48–60 s; demais janelas sem alerta |
+| `beta_concentracao/S002E01.edf` | [confirmar origem] | P8 constante em 40–44 s, 44–48 s e 56–60 s; demais janelas sem alerta |
+
+Para S001E01 e S002E01, a origem exata ainda não foi confirmada. Antes de considerar o teste reproduzível, é preciso registrar de onde esses arquivos vieram.
+
+Para repetir um teste, troque a linha ativa de `ler_gravacao.py` pelo arquivo desejado. Os outros caminhos ficam como comentário.
