@@ -24,7 +24,12 @@
     "necessarios": [
       "F3"
     ],
-    "alertas": [],
+    "alertas": [
+      {
+        "canal": "P8",
+        "motivo": "canal_constante"
+      }
+    ],
     "estado": "aguardando"
   },
   {
@@ -52,7 +57,12 @@
     "necessarios": [
       "F3"
     ],
-    "alertas": [],
+    "alertas": [
+      {
+        "canal": "P8",
+        "motivo": "canal_constante"
+      }
+    ],
     "estado": "aguardando"
   },
   {
@@ -304,12 +314,7 @@
     "necessarios": [
       "F3"
     ],
-    "alertas": [
-      {
-        "canal": "P8",
-        "motivo": "canal_constante"
-      }
-    ],
+    "alertas": [],
     "estado": "aguardando"
   },
   {
@@ -337,12 +342,7 @@
     "necessarios": [
       "F3"
     ],
-    "alertas": [
-      {
-        "canal": "P8",
-        "motivo": "canal_constante"
-      }
-    ],
+    "alertas": [],
     "estado": "aguardando"
   },
   {
@@ -426,12 +426,7 @@
     "necessarios": [
       "F3"
     ],
-    "alertas": [
-      {
-        "canal": "P8",
-        "motivo": "canal_constante"
-      }
-    ],
+    "alertas": [],
     "estado": "aguardando"
   }
 ]

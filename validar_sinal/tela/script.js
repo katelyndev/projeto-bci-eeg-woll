@@ -106,6 +106,11 @@ function mostrar(janela){
         lista.appendChild(item);
         
     }
+
+    // mostra em que janela e em que segundo da gravação estamos
+    document.getElementById("posicao").textContent =
+    "Janela " + janela.janela + " de " + janelas.length + " (" + janela.intervalo[0] + " a " + janela.intervalo[1] + " s)";
+    
     // desenha os cartões de todos os canais desta janela
     desenharGrade(janela);
 }
