@@ -122,6 +122,3 @@ Todas as gravações têm 14 canais, 256 Hz e 60 segundos lidos pelo leitor (`le
 | `beta_concentracao/S001E01.edf` | Mendeley, DOI 10.17632/8c26dn6c7w.1, convertida para os testes de concentração | P8 constante em 48–60 s; demais janelas sem alerta |
 | `beta_concentracao/S002E01.edf` | Mendeley, DOI 10.17632/8c26dn6c7w.1, convertida para os testes de concentração | P8 constante em 40–44 s, 44–48 s e 56–60 s; demais janelas sem alerta |
 
-Para S001E01 e S002E01, a origem exata ainda não foi confirmada. Antes de considerar o teste reproduzível, é preciso registrar de onde esses arquivos vieram.
-
-Para repetir um teste, troque a linha ativa de `ler_gravacao.py` pelo arquivo desejado. Os outros caminhos ficam como comentário.
