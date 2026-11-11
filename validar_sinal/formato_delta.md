@@ -27,4 +27,3 @@
 
 - Janela de verificação: 4 s dentro de 30 s, ou a janela inteira.
 - Canais necessários: Fpz-Cz, Pz-Oz, ou só um.
-- Confirmação de Matheus (critério de suspensão) e Pedro (campos da verificação).
