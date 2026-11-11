@@ -29,6 +29,10 @@ body {
     background: #dddddd;
 }
 
+#quadrado.valida {
+    background: #2e9e4f;
+}
+
 /* texto que explica o estado */
 #texto-estado {
     font-size: 20px;

@@ -3,6 +3,8 @@
 
 // arquivo de dados que a tela lê; troque aqui para usar outra fonte
 const ARQUIVO_DADOS = "janelas_reais.json"; 
+// const ARQUIVO_DADOS = "exemplos_sono_teste.json"; 
+
 
 // cria a variavel janelas e comeca ela com uma lista vazia []
 let janelas = [];
@@ -25,6 +27,8 @@ function textoDoEstado(estado){
     if(estado === "relaxado") return "Relaxado";
     // "aguardando" = ainda não há análise para esta janela; não é problema no sinal
     if (estado === "aguardando") return "Aguardando análise";
+    if (estado === "valida") return "Válida";
+    if (estado === "suspensa") return "Suspenso (problema no sinal)";
 
     return "Sem decisão - problema no sinal";
 }
