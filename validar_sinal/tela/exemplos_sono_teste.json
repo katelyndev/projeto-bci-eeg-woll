@@ -1,0 +1,29 @@
+[
+  {
+    "participante": "P1",
+    "janela": 1,
+    "intervalo": [0, 30],
+    "canais": ["Fpz-Cz", "Pz-Oz"],
+    "necessarios": ["Fpz-Cz", "Pz-Oz"],
+    "alertas": [],
+    "estado": "valida"
+  },
+  {
+    "participante": "P1",
+    "janela": 2,
+    "intervalo": [30, 60],
+    "canais": ["Fpz-Cz", "Pz-Oz"],
+    "necessarios": ["Fpz-Cz", "Pz-Oz"],
+    "alertas": [{"canal": "Pz-Oz", "motivo": "canal_constante"}],
+    "estado": "suspensa"
+  },
+  {
+    "participante": "P1",
+    "janela": 3,
+    "intervalo": [60, 90],
+    "canais": ["Fpz-Cz", "Pz-Oz"],
+    "necessarios": ["Fpz-Cz", "Pz-Oz"],
+    "alertas": [],
+    "estado": "aguardando"
+  }
+]

@@ -31,6 +31,8 @@ def preparar_gravacao(arquivo, duracao_segundos, canais, segundos_por_janela=4):
     if not nomes_canais:
         raise ValueError("É necessário selecionar pelo menos um canal.")
 
+    with pyedflib.EdfReader(str(arquivo)) as gravacao:
+
         for canal in nomes_canais:
             if canal not in nomes_disponiveis:
                 raise ValueError(f"Canal não encontrado no arquivo: {canal}")
