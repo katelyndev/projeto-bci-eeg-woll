@@ -73,7 +73,7 @@ if __name__ == "__main__":
 
     # gera o JSON da concentração, com o nome que a tela usa hoje
     gerar_json(
-        arquivo="beta_concentracao/S003E01.edf",
+        arquivo="beta_concentracao/S002E01.edf",
         duracao_segundos=60,
         canais=CANAIS_CONCENTRACAO,
         necessarios=["F3"],
