@@ -27,3 +27,8 @@
 
 - Janela de verificação: 4 s dentro de 30 s, ou a janela inteira.
 - Canais necessários: Fpz-Cz, Pz-Oz, ou só um.
+
+## Decisões confirmadas
+
+- **Canais necessários do delta:** `EEG Fpz-Cz` e `EEG Pz-Oz`.
+- **Janela de verificação do sono:** janela inteira de 30 s (sem divisão em 4 s).
