@@ -23,10 +23,6 @@
 - **suspensa:** texto "Suspensa (problema no sinal)", quadrado cinza escuro com borda tracejada.
 - **aguardando:** texto "Aguardando análise", quadrado cinza claro.
 
-## Pendente de decisão
-
-- Janela de verificação: 4 s dentro de 30 s, ou a janela inteira.
-- Canais necessários: Fpz-Cz, Pz-Oz, ou só um.
 
 ## Decisões confirmadas
 
