@@ -14,8 +14,8 @@ print("caso 2:", resultado, "| esperado: focado")
 
 # caso 3: alerta num canal que a análise usa, a decisão é suspensa
 resultado = decidir_com_qualidade([{"canal": "F3", "motivo": "constante"}], ["F3"], "focado")
-print("caso 3:", resultado, "| esperado: sem_decisao")
+print("caso 3:", resultado, "| esperado: suspensa")
 
 # caso 4: valor inválido num canal usado, a decisão é suspensa mesmo com outra decisão normal
 resultado = decidir_com_qualidade([{"canal": "F3", "motivo": "invalido"}], ["F3"], "relaxado")
-print("caso 4:", resultado, "| esperado: sem_decisao")
+print("caso 4:", resultado, "| esperado: suspensa")

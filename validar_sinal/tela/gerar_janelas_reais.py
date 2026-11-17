@@ -8,9 +8,12 @@ from pathlib import Path
 # função do leitor que abre a gravação e devolve as janelas com alertas
 from validar_sinal.ler_gravacao import preparar_gravacao
 
+# regra que decide se a janela é válida ou suspensa, a partir dos alertas
+from validar_sinal.tela.regra_qualidade import decidir_com_qualidade
+
 
 # gera o JSON de uma gravação, no formato que a tela lê
-def gerar_json(arquivo, duracao_segundos, canais, necessarios, nome_saida, segundos_por_janela):
+def gerar_json(arquivo, duracao_segundos, canais, necessarios, nome_saida, segundos_por_janela, potencias=None):
 
     # chama o leitor com os valores pedidos e guarda as janelas lidas
     janelas_lidas = preparar_gravacao(
@@ -26,6 +29,9 @@ def gerar_json(arquivo, duracao_segundos, canais, necessarios, nome_saida, segun
 
     # lista que vai guardar as janelas no formato da tela
     janelas_tela = []
+    # se as potencias nao forem passadas, funcao se comporta como antes 
+    if potencias is None:
+        potencias =[]
 
     # percorre cada janela lida, numerando a partir de 1
     for numero, janela in enumerate(janelas_lidas, start=1):
@@ -73,7 +79,7 @@ if __name__ == "__main__":
 
     # gera o JSON da concentração, com o nome que a tela usa hoje
     gerar_json(
-        arquivo="beta_concentracao/S002E01.edf",
+        arquivo="beta_concentracao/S003E01.edf",
         duracao_segundos=60,
         canais=CANAIS_CONCENTRACAO,
         necessarios=["F3"],

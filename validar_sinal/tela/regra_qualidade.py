@@ -10,7 +10,7 @@ def decidir_com_qualidade(alertas, canais_necessarios, decisao_normal):
         # se esse canal é um dos que a analise precisa, a decisao nao pdoe ser feita 
         if canal_com_problema in canais_necessarios:
             # devolve o estado especial
-            return "sem_decisao"
+            return "suspensa"
 
     # chegou aqui, nenhum canal necessario tem problema entao vale decisao normal
     return decisao_normal

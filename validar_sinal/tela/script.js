@@ -2,10 +2,10 @@
 // lê o arquivo exemplos_teste_tela.json e atualiza a tela a cada 3 segundos
 
 // arquivo de dados que a tela lê; troque aqui para usar outra fonte
-// const ARQUIVO_DADOS = "janelas_reais.json"; 
+const ARQUIVO_DADOS = "janelas_reais.json"; 
 // const ARQUIVO_DADOS = "exemplos_sono_teste.json"; 
 // const ARQUIVO_DADOS = "janelas_sono_SC4001E0.json";
-const ARQUIVO_DADOS = "janelas_sono_SC4011E0.json";
+// const ARQUIVO_DADOS = "janelas_sono_SC4011E0.json";
 
 
 // cria a variavel janelas e comeca ela com uma lista vazia []
