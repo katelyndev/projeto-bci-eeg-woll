@@ -35,6 +35,8 @@ def gerar_json(arquivo, duracao_segundos, canais, necessarios, nome_saida, segun
 
     # percorre cada janela lida, numerando a partir de 1
     for numero, janela in enumerate(janelas_lidas, start=1):
+        # pega a lista de potências desta janela, se a lista existir; senão, fica vazia
+        potencias_da_janela = potencias[numero - 1] if potencias else []
 
         # monta a janela com só os campos que a tela usa
         janelas_tela.append({
@@ -48,6 +50,8 @@ def gerar_json(arquivo, duracao_segundos, canais, necessarios, nome_saida, segun
             "necessarios": list(necessarios),
             # problemas de qualidade encontrados na janela
             "alertas": janela["alertas"],
+            # cria uma nova chave e coloca o valor que esta na variavel potencias 
+            "potencias": potencias_da_janela,
             # estado ainda não calculado, a tela mostra "aguardando"
             "estado": "aguardando",
         })

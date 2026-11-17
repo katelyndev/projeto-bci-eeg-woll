@@ -30,6 +30,7 @@
         "motivo": "canal_constante"
       }
     ],
+    "potencias": [],
     "estado": "aguardando"
   },
   {
@@ -63,6 +64,7 @@
         "motivo": "canal_constante"
       }
     ],
+    "potencias": [],
     "estado": "aguardando"
   },
   {
@@ -91,6 +93,7 @@
       "F3"
     ],
     "alertas": [],
+    "potencias": [],
     "estado": "aguardando"
   },
   {
@@ -119,6 +122,7 @@
       "F3"
     ],
     "alertas": [],
+    "potencias": [],
     "estado": "aguardando"
   },
   {
@@ -147,6 +151,7 @@
       "F3"
     ],
     "alertas": [],
+    "potencias": [],
     "estado": "aguardando"
   },
   {
@@ -175,6 +180,7 @@
       "F3"
     ],
     "alertas": [],
+    "potencias": [],
     "estado": "aguardando"
   },
   {
@@ -203,6 +209,7 @@
       "F3"
     ],
     "alertas": [],
+    "potencias": [],
     "estado": "aguardando"
   },
   {
@@ -231,6 +238,7 @@
       "F3"
     ],
     "alertas": [],
+    "potencias": [],
     "estado": "aguardando"
   },
   {
@@ -259,6 +267,7 @@
       "F3"
     ],
     "alertas": [],
+    "potencias": [],
     "estado": "aguardando"
   },
   {
@@ -287,6 +296,7 @@
       "F3"
     ],
     "alertas": [],
+    "potencias": [],
     "estado": "aguardando"
   },
   {
@@ -315,6 +325,7 @@
       "F3"
     ],
     "alertas": [],
+    "potencias": [],
     "estado": "aguardando"
   },
   {
@@ -343,6 +354,7 @@
       "F3"
     ],
     "alertas": [],
+    "potencias": [],
     "estado": "aguardando"
   },
   {
@@ -371,6 +383,7 @@
       "F3"
     ],
     "alertas": [],
+    "potencias": [],
     "estado": "aguardando"
   },
   {
@@ -399,6 +412,7 @@
       "F3"
     ],
     "alertas": [],
+    "potencias": [],
     "estado": "aguardando"
   },
   {
@@ -427,6 +441,7 @@
       "F3"
     ],
     "alertas": [],
+    "potencias": [],
     "estado": "aguardando"
   }
 ]
