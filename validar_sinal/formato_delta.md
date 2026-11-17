@@ -29,24 +29,24 @@
 - **Canais necessários do delta:** `EEG Fpz-Cz` e `EEG Pz-Oz`.
 - **Janela de verificação do sono:** janela inteira de 30 s (sem divisão em 4 s).
 
-## Potências por janela (Matheus)
+## Potências por janela 
 
-Cada janela de 30 s tem as quatro bandas calculadas separadamente para cada canal EEG (`EEG Fpz-Cz` e `EEG Pz-Oz`), sem média entre eles.
+Cada janela de 30 s tem as quatro bandas calculadas separadamente para cada canal EEG (`EEG Fpz-Cz` e `EEG Pz-Oz`), sem média entre eles. A potência de cada banda é a integral da PSD, calculada pelo método de Welch, dentro dos limites da faixa.
 
 | Campo | Tipo | Exemplo | Descrição |
 |---|---|---|---|
 | `potencias` | lista | ver abaixo | uma entrada por canal |
 | `canal` | texto | "EEG Fpz-Cz" | canal da medida |
-| `delta` | número | 12.4 | potência de 0,5 a 4 Hz |
-| `theta` | número | 6.1 | potência de 4 a 8 Hz |
-| `alfa` | número | 3.2 | potência de 8 a 13 Hz |
-| `beta` | número | 1.9 | potência de 13 a 30 Hz |
-| `unidade` | texto | "uV²/Hz" | unidade da potência |
+| `delta` | número | 45.2 | potência integrada de 0,5 a 4 Hz |
+| `theta` | número | 18.7 | potência integrada de 4 a 8 Hz |
+| `alfa` | número | 11.3 | potência integrada de 8 a 13 Hz |
+| `beta` | número | 6.9 | potência integrada de 13 a 30 Hz |
+| `unidade` | texto | "uV²" | unidade da potência integrada |
 
 Exemplo de uma janela:
 
 ```json
 "potencias": [
-  {"canal": "EEG Fpz-Cz", "delta": 12.4, "theta": 6.1, "alfa": 3.2, "beta": 1.9, "unidade": "uV²/Hz"},
-  {"canal": "EEG Pz-Oz", "delta": 10.8, "theta": 5.7, "alfa": 2.9, "beta": 1.7, "unidade": "uV²/Hz"}
+  {"canal": "EEG Fpz-Cz", "delta": 45.2, "theta": 18.7, "alfa": 11.3, "beta": 6.9, "unidade": "uV²"},
+  {"canal": "EEG Pz-Oz", "delta": 40.1, "theta": 16.5, "alfa": 10.8, "beta": 6.2, "unidade": "uV²"}
 ]
