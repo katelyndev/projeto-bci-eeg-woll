@@ -28,3 +28,15 @@
 
 - **Canais necessários do delta:** `EEG Fpz-Cz` e `EEG Pz-Oz`.
 - **Janela de verificação do sono:** janela inteira de 30 s (sem divisão em 4 s).
+
+## Potências por janela (Matheus)
+
+Cada janela de 30 s tem uma potência por banda, nos canais EEG `EEG Fpz-Cz` e `EEG Pz-Oz`.
+
+| Campo | Tipo | Exemplo | Descrição |
+|---|---|---|---|
+| `delta` | número | 12.4 | potência na faixa de 0,5 a 4 Hz |
+| `theta` | número | 6.1 | potência na faixa de 4 a 8 Hz |
+| `alfa` | número | 3.2 | potência na faixa de 8 a 13 Hz |
+| `beta` | número | 1.9 | potência na faixa de 13 a 30 Hz |
+| `unidade` | texto | "uV²/Hz" | unidade da potência |
