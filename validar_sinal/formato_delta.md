@@ -31,12 +31,22 @@
 
 ## Potências por janela (Matheus)
 
-Cada janela de 30 s tem uma potência por banda, nos canais EEG `EEG Fpz-Cz` e `EEG Pz-Oz`.
+Cada janela de 30 s tem as quatro bandas calculadas separadamente para cada canal EEG (`EEG Fpz-Cz` e `EEG Pz-Oz`), sem média entre eles.
 
 | Campo | Tipo | Exemplo | Descrição |
 |---|---|---|---|
-| `delta` | número | 12.4 | potência na faixa de 0,5 a 4 Hz |
-| `theta` | número | 6.1 | potência na faixa de 4 a 8 Hz |
-| `alfa` | número | 3.2 | potência na faixa de 8 a 13 Hz |
-| `beta` | número | 1.9 | potência na faixa de 13 a 30 Hz |
+| `potencias` | lista | ver abaixo | uma entrada por canal |
+| `canal` | texto | "EEG Fpz-Cz" | canal da medida |
+| `delta` | número | 12.4 | potência de 0,5 a 4 Hz |
+| `theta` | número | 6.1 | potência de 4 a 8 Hz |
+| `alfa` | número | 3.2 | potência de 8 a 13 Hz |
+| `beta` | número | 1.9 | potência de 13 a 30 Hz |
 | `unidade` | texto | "uV²/Hz" | unidade da potência |
+
+Exemplo de uma janela:
+
+```json
+"potencias": [
+  {"canal": "EEG Fpz-Cz", "delta": 12.4, "theta": 6.1, "alfa": 3.2, "beta": 1.9, "unidade": "uV²/Hz"},
+  {"canal": "EEG Pz-Oz", "delta": 10.8, "theta": 5.7, "alfa": 2.9, "beta": 1.7, "unidade": "uV²/Hz"}
+]
