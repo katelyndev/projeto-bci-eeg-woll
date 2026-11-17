@@ -39,6 +39,20 @@ resultado = validar_qualidade(dados_com_infinito, ["F3"])
 print("\nTeste com infinito:")
 print(resultado)
 
+print("\nTeste com NaN:")
+
+dados_com_nan = np.array([
+    [1.0, np.nan, 3.0, 2.0]
+])
+
+resultado = validar_qualidade(dados_com_nan, ["F3"])
+
+print(resultado)
+
+assert resultado == [
+    {"canal": "F3", "motivo": "valor_invalido"}
+]
+
 print("\nTeste com quantidade incorreta de nomes:")
 
 try:

@@ -21,15 +21,16 @@ def preparar_gravacao(arquivo, duracao_segundos, canais, segundos_por_janela=4):
         raise FileNotFoundError(f"Arquivo não encontrado: {arquivo}")
 
     with pyedflib.EdfReader(str(arquivo)) as gravacao:
+
         nomes_disponiveis = gravacao.getSignalLabels()
 
-    if canais is None:
-        raise ValueError("É necessário selecionar pelo menos um canal.")
+        if canais is None:
+            raise ValueError("É necessário selecionar pelo menos um canal.")
 
-    nomes_canais = list(canais)
+        nomes_canais = list(canais)
 
-    if not nomes_canais:
-        raise ValueError("É necessário selecionar pelo menos um canal.")
+        if not nomes_canais:
+            raise ValueError("É necessário selecionar pelo menos um canal.")
 
     with pyedflib.EdfReader(str(arquivo)) as gravacao:
 
@@ -86,6 +87,7 @@ def preparar_gravacao(arquivo, duracao_segundos, canais, segundos_por_janela=4):
             gravacao.readSignal(indice, start=0, n=amostras_por_canal)
             for indice in indices_canais
         ])
+        
 
         print("\nFormato dos dados:", dados.shape)
         print("Duração lida:", duracao_segundos, "segundos")
