@@ -89,9 +89,8 @@ function desenharGrade(janela) {
 function mostrar(janela){
     // pega o id da pagina e guarda na variavel 
     const quadrado = document.getElementById("quadrado");
-    // troca a classe do quadrado pelo estado da janela, trocando "_" por "-"
-    // ex.: "sem_decisao" vira "sem-decisao", que é o nome da classe no CSS
-    quadrado.className = janela.estado.replace("_", "-");
+    // troca a classe do quadrado pelo estado da janela (focado, relaxado, valida, suspensa ou aguardando)
+    quadrado.className = janela.estado;
 
     // escreve no parágrafo "texto-estado" a frase que corresponde ao estado da janela
     document.getElementById("texto-estado").textContent = textoDoEstado(janela.estado);

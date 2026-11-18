@@ -20,7 +20,7 @@ body {
     background: #e8832a;
 }
 
-#quadrado.sem-decisao {
+#quadrado.suspensa {
     background: #555555;
     border: 4px dashed #222222; /*linha tracejada dashed*/
 }
