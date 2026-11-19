@@ -11,9 +11,12 @@ from validar_sinal.ler_gravacao import preparar_gravacao
 # regra que decide se a janela é válida ou suspensa, a partir dos alertas
 from validar_sinal.tela.regra_qualidade import decidir_com_qualidade
 
+# função que lê o arquivo de potências do Matheus
+from validar_sinal.tela.ler_potencias import ler_potencias
+
 
 # gera o JSON de uma gravação, no formato que a tela lê
-def gerar_json(arquivo, duracao_segundos, canais, necessarios, nome_saida, segundos_por_janela, potencias=None):
+def gerar_json(arquivo, duracao_segundos, canais, necessarios, nome_saida, segundos_por_janela, potencias=None, arquivo_potencias=None):
 
     # chama o leitor com os valores pedidos e guarda as janelas lidas
     janelas_lidas = preparar_gravacao(
@@ -29,14 +32,19 @@ def gerar_json(arquivo, duracao_segundos, canais, necessarios, nome_saida, segun
 
     # lista que vai guardar as janelas no formato da tela
     janelas_tela = []
-    # se as potencias nao forem passadas, funcao se comporta como antes 
+
+    # se o caminho do arquivo de potências foi passado, lê o arquivo; senão, segue como antes
+    if arquivo_potencias is not None:
+        potencias = ler_potencias(arquivo_potencias)
+
+    # se as potencias nao forem passadas, funcao se comporta como antes
     if potencias is None:
-        potencias =[]
+        potencias = []
 
     # percorre cada janela lida, numerando a partir de 1
     for numero, janela in enumerate(janelas_lidas, start=1):
-        # pega a lista de potências desta janela, se a lista existir; senão, fica vazia
-        potencias_da_janela = potencias[numero - 1] if potencias else []
+        # pega a lista de potências desta janela, se existir; senão, fica vazia
+        potencias_da_janela = potencias[numero - 1] if potencias and numero - 1 < len(potencias) else []
 
         # monta a janela com só os campos que a tela usa
         janelas_tela.append({
@@ -50,7 +58,7 @@ def gerar_json(arquivo, duracao_segundos, canais, necessarios, nome_saida, segun
             "necessarios": list(necessarios),
             # problemas de qualidade encontrados na janela
             "alertas": janela["alertas"],
-            # cria uma nova chave e coloca o valor que esta na variavel potencias 
+            # cria uma nova chave e coloca o valor que esta na variavel potencias
             "potencias": potencias_da_janela,
             # estado ainda não calculado, a tela mostra "aguardando"
             "estado": "aguardando",
