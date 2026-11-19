@@ -60,8 +60,8 @@ def gerar_json(arquivo, duracao_segundos, canais, necessarios, nome_saida, segun
             "alertas": janela["alertas"],
             # cria uma nova chave e coloca o valor que esta na variavel potencias
             "potencias": potencias_da_janela,
-            # estado ainda não calculado, a tela mostra "aguardando"
-            "estado": "aguardando",
+            # estado ainda não calculado, a tela mostra "aguardando" | uma lista [] é tratada como falsa agora com algo é verdadeiro 
+            "estado": decidir_com_qualidade(janela["alertas"], necessarios, "valida") if potencias_da_janela else "aguardando",
         })
 
     # caminho completo do arquivo de saída, dentro da pasta tela/ ao lado deste script
