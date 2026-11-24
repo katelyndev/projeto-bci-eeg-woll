@@ -2,9 +2,9 @@
 // lê o arquivo exemplos_teste_tela.json e atualiza a tela a cada 3 segundos
 
 // arquivo de dados que a tela lê; troque aqui para usar outra fonte
-const ARQUIVO_DADOS = "janelas_reais.json"; 
+// const ARQUIVO_DADOS = "janelas_reais.json"; 
 // const ARQUIVO_DADOS = "exemplos_sono_teste.json"; 
-// const ARQUIVO_DADOS = "janelas_sono_SC4001E0.json";
+const ARQUIVO_DADOS = "janelas_sono_SC4001E0.json";
 // const ARQUIVO_DADOS = "janelas_sono_SC4011E0.json";
 
 
@@ -85,6 +85,120 @@ function desenharGrade(janela) {
     });
 }
 
+
+// Desenha a tabela com as potências dos canais da janela atual.
+function desenharPotencias(janela) {
+
+    // Localiza no HTML o espaço reservado para a tabela.
+    const area = document.getElementById("potencias");
+
+    // Limpa os valores da janela anterior.
+    area.innerHTML = "";
+
+    // Obtém a lista de potências da janela atual.
+    const potencias = janela.potencias;
+
+    // Verifica se existem potências disponíveis nesta janela.
+    if (!Array.isArray(potencias) || potencias.length === 0) {
+
+        // Cria uma mensagem para informar que não há dados disponíveis.
+        const mensagem = document.createElement("p");
+
+        // Define o texto da mensagem.
+        mensagem.textContent = "Não há potências disponíveis para esta janela.";
+
+        // Exibe a mensagem na página.
+        area.appendChild(mensagem);
+
+        // Encerra a função, pois não há dados para montar a tabela.
+        return;
+    }
+
+    // Cria a tabela que apresentará os valores.
+    const tabela = document.createElement("table");
+
+    // Cria o cabeçalho da tabela.
+    const cabecalho = document.createElement("tr");
+
+    // Define os títulos das colunas e suas unidades.
+    const colunas = [
+        "Canal",
+        "Delta (uV²)",
+        "Theta (uV²)",
+        "Alfa (uV²)",
+        "Beta (uV²)"
+    ];
+
+    // Percorre os títulos para criar as células do cabeçalho.
+    colunas.forEach((titulo) => {
+
+        // Cria uma célula de cabeçalho.
+        const celula = document.createElement("th");
+
+        // Escreve o título da coluna.
+        celula.textContent = titulo;
+
+        // Adiciona a célula ao cabeçalho.
+        cabecalho.appendChild(celula);
+    });
+
+    // Cria a área de cabeçalho da tabela.
+    const thead = document.createElement("thead");
+
+    // Coloca a linha de títulos dentro do cabeçalho.
+    thead.appendChild(cabecalho);
+
+    // Adiciona o cabeçalho à tabela.
+    tabela.appendChild(thead);
+
+    // Cria a área que receberá os dados.
+    const corpo = document.createElement("tbody");
+
+    // Percorre os registros de potência de cada canal.
+    potencias.forEach((registro) => {
+
+        // Cria uma nova linha para o canal.
+        const linha = document.createElement("tr");
+
+        // Cria a célula com o nome do canal.
+        const celulaCanal = document.createElement("td");
+
+        // Preenche a célula com o nome do canal.
+        celulaCanal.textContent = registro.canal;
+
+        // Adiciona o nome do canal à linha.
+        linha.appendChild(celulaCanal);
+
+        // Percorre as quatro bandas de frequência.
+        ["delta", "theta", "alfa", "beta"].forEach((banda) => {
+
+            // Cria uma célula para o valor da banda.
+            const celula = document.createElement("td");
+
+            // Obtém o valor da banda no registro atual.
+            const valor = registro[banda];
+
+            // Exibe o valor com duas casas decimais, se for numérico.
+            celula.textContent = Number.isFinite(Number(valor))
+                ? Number(valor).toFixed(2)
+                : "—";
+
+            // Adiciona a célula à linha.
+            linha.appendChild(celula);
+        });
+
+        // Adiciona a linha do canal ao corpo da tabela.
+        corpo.appendChild(linha);
+    });
+
+    // Coloca os dados dentro da tabela.
+    tabela.appendChild(corpo);
+
+    // Exibe a tabela na página.
+    area.appendChild(tabela);
+}
+
+
 // cria a funcao qu vai receber a janela e  abre o bloco todo 
 function mostrar(janela){
     // pega o id da pagina e guarda na variavel 
@@ -119,15 +233,20 @@ function mostrar(janela){
 
     // desenha os cartões de todos os canais desta janela
     desenharGrade(janela);
+
+    // desenha a tabela com as potências da janela atual
+    desenharPotencias(janela);
+
 }
 
 // começa o programa carrega os exemplos e mostra a primeira janela 
 async function iniciar(){
     // primeiro carrega os exeplos 
     await carregar();
-
+    // posicao = 1021;
     // mostra a primeira janela apos carregar 
     mostrar(janelas[0]);
+    // mostrar(janelas[posicao]);
 
     // a cada 3 segundos avanca para a proxima janela | repite a acao em intervalos regulares 
     setInterval(() => {

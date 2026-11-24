@@ -84,3 +84,38 @@ body {
     background: #f8d7da;
     border-color: #c0392b;
 }
+
+/* área que contém a tabela de potências */
+#potencias {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+/* tabela que apresenta as potências das bandas EEG */
+#potencias table {
+    display: flex;
+    flex-direction: column;
+}
+
+/* cabeçalho e corpo da tabela */
+#potencias thead,
+#potencias tbody {
+    display: flex;
+    flex-direction: column;
+}
+
+/* células com os nomes das bandas e os valores */
+#potencias th,
+#potencias td {
+    width: 120px;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    text-align: center;
+}
+
+/* cabeçalho com os nomes das bandas */
+#potencias th {
+    background: #e0e8e3;
+    font-weight: bold;
+}
