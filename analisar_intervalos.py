@@ -7,34 +7,34 @@ from collections import Counter
 
 participantes = {
     "SC4001E0": {
-        "matheus": "estudo_DELTA/potencias_SC4001E0.json",
+        "resultado_DELTA": "estudo_DELTA/potencias_SC4001E0.json",
         "gerador": "validar_sinal/tela/janelas_sono_SC4001E0.json"
     },
     "SC4011E0": {
-        "matheus": "estudo_DELTA/potencias_SC4011E0.json",
+        "resultado_DELTA": "estudo_DELTA/potencias_SC4011E0.json",
         "gerador": "validar_sinal/tela/janelas_sono_SC4011E0.json"
     }
 }
 
 for participante, arquivos in participantes.items():
 
-    dados_matheus = json.loads(
-        Path(arquivos["matheus"]).read_text(encoding="utf-8")
+    dados_DELTA = json.loads(
+        Path(arquivos["delta"]).read_text(encoding="utf-8")
     )
 
     dados_gerador = json.loads(
         Path(arquivos["gerador"]).read_text(encoding="utf-8")
     )
 
-    intervalos_matheus = {
-        tuple(janela["intervalo"]) for janela in dados_matheus
+    intervalos_DELTA = {
+        tuple(janela["intervalo"]) for janela in dados_DELTA
     }
 
     intervalos_gerador = {
         tuple(janela["intervalo"]) for janela in dados_gerador
     }
 
-    faltantes = sorted(intervalos_gerador - intervalos_matheus)
+    faltantes = sorted(intervalos_gerador - intervalos_DELTA)
 
     # Agrupa intervalos ausentes que são consecutivos
     blocos = []
@@ -57,7 +57,7 @@ for participante, arquivos in participantes.items():
 
     # Conta quantas janelas existem de cada estágio do sono
     estagios = Counter(
-        janela["estagio_sono"] for janela in dados_matheus
+        janela["estagio_sono"] for janela in dados_DELTA
     )
 
     print(f"\n--- {participante} ---")

@@ -11,7 +11,7 @@ from validar_sinal.ler_gravacao import preparar_gravacao
 # regra que decide se a janela é válida ou suspensa, a partir dos alertas
 from validar_sinal.tela.regra_qualidade import decidir_com_qualidade
 
-# função que lê o arquivo de potências do Matheus
+# função que lê o arquivo de potências do estudo_DELTA
 from validar_sinal.tela.ler_potencias import ler_potencias
 
 
@@ -21,7 +21,7 @@ def organizar_potencias_por_intervalo(potencias):
     # Cria um dicionário vazio que guardará os intervalos e suas respectivas potências.
     potencias_por_intervalo = {}
 
-    # Percorre cada registro exportado pelo Matheus.
+    # Percorre cada registro exportado pelo resultado_DELTA
     for registro in potencias:
 
         # Pega o intervalo da janela, que contém o início e o fim em segundos.

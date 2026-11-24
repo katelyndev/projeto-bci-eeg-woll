@@ -243,10 +243,10 @@ function mostrar(janela){
 async function iniciar(){
     // primeiro carrega os exeplos 
     await carregar();
-    // posicao = 1021;
+    posicao = 1021;
     // mostra a primeira janela apos carregar 
-    mostrar(janelas[0]);
-    // mostrar(janelas[posicao]);
+    // mostrar(janelas[0]);
+    mostrar(janelas[posicao]);
 
     // a cada 3 segundos avanca para a proxima janela | repite a acao em intervalos regulares 
     setInterval(() => {
