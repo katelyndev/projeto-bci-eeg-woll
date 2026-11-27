@@ -239,14 +239,739 @@ function mostrar(janela){
 
 }
 
+// Organiza as potências de todas as janelas para os gráficos.
+function organizarDadosGrafico() {
+
+    // Cria um objeto com uma lista para cada canal EEG.
+    const dados = {
+        "EEG Fpz-Cz": [],
+        "EEG Pz-Oz": []
+    };
+
+    // Percorre todas as janelas da gravação.
+    for (const janela of janelas) {
+
+        // Percorre os canais que queremos acompanhar.
+        for (const canal of Object.keys(dados)) {
+
+            // Procura a potência do canal na janela atual.
+            const potencia = janela.potencias.find(
+                item => item.canal === canal
+            );
+
+            // Adiciona um registro para esse canal.
+            dados[canal].push({
+
+                // Guarda o início do intervalo da janela.
+                tempo: janela.intervalo[0],
+
+                // Guarda as potências ou null quando não existem.
+                delta: potencia ? potencia.delta : null,
+                theta: potencia ? potencia.theta : null,
+                alfa: potencia ? potencia.alfa : null,
+                beta: potencia ? potencia.beta : null
+
+            });
+        }
+    }
+
+    // Devolve os dados organizados por canal.
+    return dados;
+}
+
+// desenhar o grafico da potencia delta do canal 
+function desenharGraficoDelta(dados){
+    // seleciona os dados do canal 
+    const dadosCanal = dados["EEG Fpz-Cz"];
+    // percorre os registros e extrai os valores de delta 
+    const valoresDelta = dadosCanal.map(registro => registro.delta);
+    // percorre os registros e extrai o tempo de cada janela
+    const tempos = dadosCanal.map(registro => registro.tempo);
+    // junta o tempo e a potencia Delta de cada registro 
+    const pontos = dadosCanal.map(registro => ({
+        x: registro.tempo,
+        y: registro.delta
+    }));
+    // localiza o canvas onde o grafico sera desenhado 
+    const canvas = document.getElementById("grafico-delta");
+    // obtem o contexto de desenho do canvas
+    const contexto = canvas.getContext("2d"); 
+
+    // cria o grafico utilizando a biblioteca chart
+    new Chart(contexto, {
+        // define que o grafico sera de linhas 
+        type: "line",
+        // define os dados que serao apresentados no grafico 
+        data: {
+            // define os pontos que serao desenhados 
+            datasets:[{
+                // nome da legenda do grafico
+                label: "Delta - EEG Fpz-Cz",
+                // entrega ao grafico os pontos que organizamos anteriormente
+                data: pontos,
+                // oculta os circulos na ponta
+                pointRadius: 0,
+                // Define o tamanho do círculo quando passamos o mouse.
+                pointHoverRadius: 5,
+                // Aumenta a área em que o mouse consegue detectar cada ponto.
+                pointHitRadius: 10
+            }]
+        },
+        // configura a apresentação dos eixos do grafico 
+        options: {
+            scales: {
+                // configura o eixo horizontal para representar o tempo 
+                x: {
+                    type: "linear",
+                    title: {
+                        display: true,
+                        text: "Tempo (segundos)"
+                    }
+                },
+                y: {
+                    // começa a escala do zero
+                    beginAtZero: true,
+                    // define o mesmo limite superior 
+                    max: 2500,
+                    title: {
+                        display: true,
+                        text: "Potência (µV²)"
+                    }
+                }
+            },
+            interaction: {
+                mode: "nearest", //ponto mais proximo do cursor
+                intersect: false //indentifica mesmo se o cursor nao entiver sobre ele 
+            },
+            // configura os elementos add no grafico
+            plugins: {
+                // configura a legenda que mostra delta e o quadradinho azul
+                legend: {
+                    labels: {
+                        font: {
+                            size: 24
+                        },
+                        //  tamanho quadradinho
+                        boxWidth: 50,
+                        boxHeight: 24,
+                        // espaçamento da legenda
+                        padding: 15
+                    }
+                }
+            }
+        }
+    })
+}
+
+// desenhar o grafico da potencia delta do canal 
+function desenharGraficoDeltaPz(dados){
+    // seleciona os dados do canal 
+    const dadosCanal = dados["EEG Pz-Oz"];
+    // percorre os registros e extrai os valores de delta 
+    const valoresDelta = dadosCanal.map(registro => registro.delta);
+    // percorre os registros e extrai o tempo de cada janela
+    const tempos = dadosCanal.map(registro => registro.tempo);
+    // junta o tempo e a potencia Delta de cada registro 
+    const pontos = dadosCanal.map(registro => ({
+        x: registro.tempo,
+        y: registro.delta
+    }));
+    // localiza o canvas onde o grafico sera desenhado 
+    const canvas = document.getElementById("grafico-delta-pz");
+    // obtem o contexto de desenho do canvas
+    const contexto = canvas.getContext("2d"); 
+
+    // cria o grafico utilizando a biblioteca chart
+    new Chart(contexto, {
+        // define que o grafico sera de linhas 
+        type: "line",
+        // define os dados que serao apresentados no grafico 
+        data: {
+            // define os pontos que serao desenhados 
+            datasets:[{
+                // nome da legenda do grafico
+                label: "Delta - EEG Pz-Oz",
+                // entrega ao grafico os pontos que organizamos anteriormente
+                data: pontos,
+                // oculta os circulos na ponta
+                pointRadius: 0,
+                // Define o tamanho do círculo quando passamos o mouse.
+                pointHoverRadius: 5,
+                // Aumenta a área em que o mouse consegue detectar cada ponto.
+                pointHitRadius: 10
+            }]
+        },
+        // configura a apresentação dos eixos do grafico 
+        options: {
+            scales: {
+                // configura o eixo horizontal para representar o tempo 
+                x: {
+                    type: "linear",
+                    title: {
+                        display: true,
+                        text: "Tempo (segundos)"
+                    }
+                },
+                y: {
+                    // começa a escala do zero
+                    beginAtZero: true,
+                    // define o mesmo limite superior 
+                    max: 2500,
+                    title: {
+                        display: true,
+                        text: "Potência (µV²)"
+                    }
+                }
+            },
+            interaction: {
+                mode: "nearest", //ponto mais proximo do cursor
+                intersect: false //indentifica mesmo se o cursor nao entiver sobre ele 
+            },
+            plugins: {
+                // configura a legenda que mostra delta e o quadradinho azul
+                legend: {
+                    labels: {
+                        font: {
+                            size: 24
+                        },
+                        //  tamanho quadradinho
+                        boxWidth: 50,
+                        boxHeight: 24,
+                        // espaçamento da legenda
+                        padding: 15
+                    }
+                }
+            }
+        }
+    })
+}
+
+
+function desenharGraficoTheta(dados){
+    const dadosCanal = dados["EEG Fpz-Cz"];
+    const pontos = dadosCanal.map(registro => ({
+        x: registro.tempo,
+        y: registro.theta
+    }));
+
+    const canvas = document.getElementById("grafico-theta");
+    const contexto = canvas.getContext("2d");
+
+    new Chart(contexto, {
+        type: "line",
+        data: {
+            datasets:[{
+                label: "Theta - EEG Fpz-Cz",
+                data: pontos,
+                pointRadius: 0,
+                pointHoverRadius: 5,
+                pointHitRadius: 10,
+                spanGaps: false
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    type: "linear",
+                    title: {
+                        display: true,
+                        text: "Tempo (segundos)"
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: "Potência (µV²)"
+                    }
+                }
+            },
+            interaction: {
+                mode: "nearest",
+                intersect: false
+            },
+            plugins: {
+                // configura a legenda que mostra delta e o quadradinho azul
+                legend: {
+                    labels: {
+                        font: {
+                            size: 24
+                        },
+                        //  tamanho quadradinho
+                        boxWidth: 50,
+                        boxHeight: 24,
+                        // espaçamento da legenda
+                        padding: 15
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Desenha o gráfico da potência Theta do canal EEG Pz-Oz.
+function desenharGraficoThetaPz(dados) {
+
+    // Seleciona os registros do canal EEG Pz-Oz.
+    const dadosCanal = dados["EEG Pz-Oz"];
+
+    // Junta o tempo e a potência Theta de cada registro.
+    const pontos = dadosCanal.map(registro => ({
+        x: registro.tempo,
+        y: registro.theta
+    }));
+
+    // Localiza o canvas onde o gráfico será desenhado.
+    const canvas = document.getElementById("grafico-theta-pz");
+
+    // Obtém o contexto de desenho do canvas.
+    const contexto = canvas.getContext("2d");
+
+    // Cria o gráfico utilizando a biblioteca Chart.js.
+    new Chart(contexto, {
+        type: "line",
+        data: {
+            datasets: [{
+                // Identifica a banda e o canal no gráfico.
+                label: "Theta - EEG Pz-Oz",
+
+                // Fornece os pontos com tempo e potência.
+                data: pontos,
+
+                // Não desenha um ponto em cada registro.
+                pointRadius: 0,
+
+                // Aumenta o ponto quando o mouse passa sobre ele.
+                pointHoverRadius: 5,
+
+                // Define a área de detecção dos pontos.
+                pointHitRadius: 10,
+
+                // Impede que a linha atravesse janelas sem potência.
+                spanGaps: false
+            }]
+        },
+        options: {
+            scales: {
+                // Configura o eixo horizontal para representar o tempo.
+                x: {
+                    type: "linear",
+                    title: {
+                        display: true,
+                        text: "Tempo (segundos)"
+                    }
+                },
+
+                // Configura o eixo vertical para representar a potência.
+                y: {
+                    title: {
+                        display: true,
+                        text: "Potência (µV²)"
+                    }
+                }
+            },
+
+            // Permite localizar o ponto mais próximo do mouse.
+            interaction: {
+                mode: "nearest",
+                intersect: false
+            },
+            plugins: {
+                // configura a legenda que mostra delta e o quadradinho azul
+                legend: {
+                    labels: {
+                        font: {
+                            size: 24
+                        },
+                        //  tamanho quadradinho
+                        boxWidth: 50,
+                        boxHeight: 24,
+                        // espaçamento da legenda
+                        padding: 15
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Desenha o gráfico da potência Alfa do canal EEG Fpz-Cz.
+function desenharGraficoAlfa(dados) {
+
+    // Seleciona os dados do canal EEG Fpz-Cz.
+    const dadosCanal = dados["EEG Fpz-Cz"];
+
+    // Junta o tempo e a potência Alfa de cada registro.
+    const pontos = dadosCanal.map(registro => ({
+        x: registro.tempo,
+        y: registro.alfa
+    }));
+
+    // Localiza o canvas onde o gráfico será desenhado.
+    const canvas = document.getElementById("grafico-alfa");
+
+    // Obtém o contexto de desenho do canvas.
+    const contexto = canvas.getContext("2d");
+
+    // Cria o gráfico utilizando a biblioteca Chart.js.
+    new Chart(contexto, {
+        type: "line",
+        data: {
+            datasets: [{
+                // Identifica a banda e o canal no gráfico.
+                label: "Alfa - EEG Fpz-Cz",
+
+                // Fornece os pontos com tempo e potência.
+                data: pontos,
+
+                // Não desenha um ponto em cada registro.
+                pointRadius: 0,
+
+                // Aumenta o ponto quando o mouse passa sobre ele.
+                pointHoverRadius: 5,
+
+                // Define a área de detecção dos pontos.
+                pointHitRadius: 10,
+
+                // Impede que a linha atravesse janelas sem potência.
+                spanGaps: false
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    // Define o eixo horizontal como numérico.
+                    type: "linear",
+
+                    // Identifica o eixo do tempo.
+                    title: {
+                        display: true,
+                        text: "Tempo (segundos)"
+                    }
+                },
+                y: {
+                    // Identifica o eixo da potência.
+                    title: {
+                        display: true,
+                        text: "Potência (µV²)"
+                    }
+                }
+            },
+
+            // Permite localizar o ponto mais próximo do mouse.
+            interaction: {
+                mode: "nearest",
+                intersect: false
+            },
+            plugins: {
+                // configura a legenda que mostra delta e o quadradinho azul
+                legend: {
+                    labels: {
+                        font: {
+                            size: 24
+                        },
+                        //  tamanho quadradinho
+                        boxWidth: 50,
+                        boxHeight: 24,
+                        // espaçamento da legenda
+                        padding: 15
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Desenha o gráfico da potência Alfa do canal EEG Pz-Oz.
+function desenharGraficoAlfaPz(dados) {
+
+    // Seleciona os registros do canal EEG Pz-Oz.
+    const dadosCanal = dados["EEG Pz-Oz"];
+
+    // Junta o tempo e a potência Alfa de cada registro.
+    const pontos = dadosCanal.map(registro => ({
+        x: registro.tempo,
+        y: registro.alfa
+    }));
+
+    // Localiza o canvas onde o gráfico será desenhado.
+    const canvas = document.getElementById("grafico-alfa-pz");
+
+    // Obtém o contexto de desenho do canvas.
+    const contexto = canvas.getContext("2d");
+
+    // Cria o gráfico utilizando a biblioteca Chart.js.
+    new Chart(contexto, {
+        type: "line",
+        data: {
+            datasets: [{
+                // Identifica a banda e o canal no gráfico.
+                label: "Alfa - EEG Pz-Oz",
+
+                // Fornece os pontos com tempo e potência.
+                data: pontos,
+
+                // Não desenha um ponto em cada registro.
+                pointRadius: 0,
+
+                // Aumenta o ponto quando o mouse passa sobre ele.
+                pointHoverRadius: 5,
+
+                // Define a área de detecção dos pontos.
+                pointHitRadius: 10,
+
+                // Impede que a linha atravesse janelas sem potência.
+                spanGaps: false
+            }]
+        },
+        options: {
+            scales: {
+                // Configura o eixo horizontal para representar o tempo.
+                x: {
+                    type: "linear",
+                    title: {
+                        display: true,
+                        text: "Tempo (segundos)"
+                    }
+                },
+
+                // Configura o eixo vertical para representar a potência.
+                y: {
+                    title: {
+                        display: true,
+                        text: "Potência (µV²)"
+                    }
+                }
+            },
+
+            // Permite localizar o ponto mais próximo do mouse.
+            interaction: {
+                mode: "nearest",
+                intersect: false
+            },
+            plugins: {
+                // configura a legenda que mostra delta e o quadradinho azul
+                legend: {
+                    labels: {
+                        font: {
+                            size: 24
+                        },
+                        //  tamanho quadradinho
+                        boxWidth: 50,
+                        boxHeight: 24,
+                        // espaçamento da legenda
+                        padding: 15
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Desenha o gráfico da potência Beta do canal EEG Fpz-Cz.
+function desenharGraficoBeta(dados) {
+
+    // Seleciona os dados do canal EEG Fpz-Cz.
+    const dadosCanal = dados["EEG Fpz-Cz"];
+
+    // Junta o tempo e a potência Beta de cada registro.
+    const pontos = dadosCanal.map(registro => ({
+        x: registro.tempo,
+        y: registro.beta
+    }));
+
+    // Localiza o canvas onde o gráfico será desenhado.
+    const canvas = document.getElementById("grafico-beta");
+
+    // Obtém o contexto de desenho do canvas.
+    const contexto = canvas.getContext("2d");
+
+    // Cria o gráfico utilizando a biblioteca Chart.js.
+    new Chart(contexto, {
+        type: "line",
+        data: {
+            datasets: [{
+                // Identifica a banda e o canal no gráfico.
+                label: "Beta - EEG Fpz-Cz",
+
+                // Fornece os pontos com tempo e potência.
+                data: pontos,
+
+                // Não desenha um ponto em cada registro.
+                pointRadius: 0,
+
+                // Aumenta o ponto quando o mouse passa sobre ele.
+                pointHoverRadius: 5,
+
+                // Define a área de detecção dos pontos.
+                pointHitRadius: 10,
+
+                // Impede que a linha atravesse janelas sem potência.
+                spanGaps: false
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    // Define o eixo horizontal como numérico.
+                    type: "linear",
+
+                    // Identifica o eixo do tempo.
+                    title: {
+                        display: true,
+                        text: "Tempo (segundos)"
+                    }
+                },
+                y: {
+                    // Identifica o eixo da potência.
+                    title: {
+                        display: true,
+                        text: "Potência (µV²)"
+                    }
+                }
+            },
+
+            // Permite localizar o ponto mais próximo do mouse.
+            interaction: {
+                mode: "nearest",
+                intersect: false
+            },
+            plugins: {
+                // configura a legenda que mostra delta e o quadradinho azul
+                legend: {
+                    labels: {
+                        font: {
+                            size: 24
+                        },
+                        //  tamanho quadradinho
+                        boxWidth: 50,
+                        boxHeight: 24,
+                        // espaçamento da legenda
+                        padding: 15
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Desenha o gráfico da potência Beta do canal EEG Pz-Oz.
+function desenharGraficoBetaPz(dados) {
+
+    // Seleciona os registros do canal EEG Pz-Oz.
+    const dadosCanal = dados["EEG Pz-Oz"];
+
+    // Junta o tempo e a potência Beta de cada registro.
+    const pontos = dadosCanal.map(registro => ({
+        x: registro.tempo,
+        y: registro.beta
+    }));
+
+    // Localiza o canvas onde o gráfico será desenhado.
+    const canvas = document.getElementById("grafico-beta-pz");
+
+    // Obtém o contexto de desenho do canvas.
+    const contexto = canvas.getContext("2d");
+
+    // Cria o gráfico utilizando a biblioteca Chart.js.
+    new Chart(contexto, {
+        type: "line",
+        data: {
+            datasets: [{
+                // Identifica a banda e o canal no gráfico.
+                label: "Beta - EEG Pz-Oz",
+
+                // Fornece os pontos com tempo e potência.
+                data: pontos,
+
+                // Não desenha um ponto em cada registro.
+                pointRadius: 0,
+
+                // Aumenta o ponto quando o mouse passa sobre ele.
+                pointHoverRadius: 5,
+
+                // Define a área de detecção dos pontos.
+                pointHitRadius: 10,
+
+                // Impede que a linha atravesse janelas sem potência.
+                spanGaps: false
+            }]
+        },
+        options: {
+            scales: {
+                // Configura o eixo horizontal para representar o tempo.
+                x: {
+                    type: "linear",
+                    title: {
+                        display: true,
+                        text: "Tempo (segundos)"
+                    }
+                },
+
+                // Configura o eixo vertical para representar a potência.
+                y: {
+                    title: {
+                        display: true,
+                        text: "Potência (µV²)"
+                    }
+                }
+            },
+
+            // Permite localizar o ponto mais próximo do mouse.
+            interaction: {
+                mode: "nearest",
+                intersect: false
+            },
+            plugins: {
+                // configura a legenda que mostra delta e o quadradinho azul
+                legend: {
+                    labels: {
+                        font: {
+                            size: 24
+                        },
+                        //  tamanho quadradinho
+                        boxWidth: 50,
+                        boxHeight: 24,
+                        // espaçamento da legenda
+                        padding: 15
+                    }
+                }
+            }
+        }
+    });
+}
+
 // começa o programa carrega os exemplos e mostra a primeira janela 
 async function iniciar(){
     // primeiro carrega os exeplos 
     await carregar();
-    posicao = 1021;
+
+    // organiza as potencias de todas as janelas 
+    const dadosGrafico = organizarDadosGrafico();
+    // Mostra a quantidade de registros organizados para cada canal.
+    console.log("Registros Fpz-Cz:", dadosGrafico["EEG Fpz-Cz"].length);
+    console.log("Registros Pz-Oz:", dadosGrafico["EEG Pz-Oz"].length);
+
+    // Conta quantas janelas estão sem potência Delta no primeiro canal.
+    console.log(
+        "Janelas sem Delta:",
+        dadosGrafico["EEG Fpz-Cz"].filter(registro => registro.delta === null).length
+    );
+    desenharGraficoDelta(dadosGrafico);
+    desenharGraficoTheta(dadosGrafico);
+    desenharGraficoAlfa(dadosGrafico);
+    desenharGraficoBeta(dadosGrafico);
+
+    desenharGraficoDeltaPz(dadosGrafico);
+    desenharGraficoThetaPz(dadosGrafico);
+    desenharGraficoAlfaPz(dadosGrafico);
+    desenharGraficoBetaPz(dadosGrafico);
+
+    console.log(dadosGrafico);
+    console.log(dadosGrafico["EEG Fpz-Cz"][0]);
+    // posicao = 1021;
     // mostra a primeira janela apos carregar 
-    // mostrar(janelas[0]);
-    mostrar(janelas[posicao]);
+    mostrar(janelas[0]);
+    // mostrar(janelas[posicao]);
 
     // a cada 3 segundos avanca para a proxima janela | repite a acao em intervalos regulares 
     setInterval(() => {

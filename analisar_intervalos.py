@@ -19,7 +19,7 @@ participantes = {
 for participante, arquivos in participantes.items():
 
     dados_DELTA = json.loads(
-        Path(arquivos["delta"]).read_text(encoding="utf-8")
+        Path(arquivos["resultado_DELTA"]).read_text(encoding="utf-8")
     )
 
     dados_gerador = json.loads(
@@ -60,10 +60,37 @@ for participante, arquivos in participantes.items():
         janela["estagio_sono"] for janela in dados_DELTA
     )
 
+    # Conta quantas janelas possuem pelo menos um alerta.
+    janelas_com_alertas = sum(
+        1 for janela in dados_gerador if janela["alertas"]
+    )
+
+    # Conta quantas ocorrências de cada motivo de alerta existem.
+    motivos_alertas = Counter(
+        alerta["motivo"]
+        for janela in dados_gerador
+        for alerta in janela["alertas"]
+    )
+
+    # Conta quantas ocorrências de alertas existem em cada canal.
+    canais_com_alertas = Counter(
+        alerta["canal"]
+        for janela in dados_gerador
+        for alerta in janela["alertas"]
+    )
+
     print(f"\n--- {participante} ---")
     print("Total de janelas ausentes:", len(faltantes))
     print("Quantidade de blocos ausentes:", len(blocos))
     print("Primeiros blocos ausentes:", blocos[:10])
     print("Últimos blocos ausentes:", blocos[-5:])
     print("Estágios do sono exportados:", estagios)
+        # Mostra quantas janelas possuem alertas.
+    print("Janelas com alertas:", janelas_com_alertas)
+
+    # Mostra a quantidade de alertas por motivo.
+    print("Motivos dos alertas:", motivos_alertas)
+
+    # Mostra a quantidade de alertas por canal.
+    print("Canais com alertas:", canais_com_alertas)
 

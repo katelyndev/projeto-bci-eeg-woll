@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Qualidade do sinal</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Biblioteca Chart.js para criação dos gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <h1>Estado da análise</h1>
@@ -16,12 +18,34 @@
     <p id="texto-estado">Aguardando dados...</p>
     
     <div id="grade"></div>
-    <!-- Seção que apresenta as potências das bandas EEG da janela atual -->
+
     <h2>Potências das bandas EEG</h2>
 
     <!-- Área onde o JavaScript construirá a tabela de potências -->
     <div id="potencias"></div>
 
+    <!-- Seção que apresenta a variação das potências ao longo da gravação -->
+    <h2>Variação das potências EEG - Canal: Fpz-Cz</h2>
+
+    <div id="graficos-potencias">
+
+        <!-- Comparação da banda Delta. -->
+        <canvas id="grafico-delta"></canvas>
+        <canvas id="grafico-delta-pz"></canvas>
+
+        <!-- Comparação da banda Theta. -->
+        <canvas id="grafico-theta"></canvas>
+        <canvas id="grafico-theta-pz"></canvas>
+
+        <!-- Comparação da banda Alfa. -->
+        <canvas id="grafico-alfa"></canvas>
+        <canvas id="grafico-alfa-pz"></canvas>
+
+        <!-- Comparação da banda Beta. -->
+        <canvas id="grafico-beta"></canvas>
+        <canvas id="grafico-beta-pz"></canvas>
+
+    </div>
     <ul id="alertas"></ul>
 
     <script src="script.js"></script>
